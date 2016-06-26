@@ -1,4 +1,4 @@
-##Minted currency
+##Minted eth backed currency
 
 contract Coin {
 
