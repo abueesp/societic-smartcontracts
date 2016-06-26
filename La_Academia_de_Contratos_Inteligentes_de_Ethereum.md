@@ -20,10 +20,10 @@ http://ether.fund/tool/calculator gas fee y gas price
 http://ether.fund/tool/gas-price gas price graph
       <article class="markdown-body entry-content" itemprop="text"><p>Sale documents:</p>
       
-##Cuentas
-Hay dos tipos de cuentas en Ethereum que comparten el mismo espacio de direcciones: *Cuentas de Usuario* que son controladas por pares de llaves pública y privada custodiadas directa o indirectamente por uno o varios sujetos, y *Cuentas de Contratos* que son controladas por el propio código almacenado homiconicamente junto con la cuenta. Las cuentas de usuario están determinadas por las llaves públicas, mientras que las cuentas de contratos están determinadas por el momento en el que el contrato es creado, en función de la dirección del creador del contrato, y el número de transacciones enviadas desde esa dirección, al cual denominamos 'nonce'.
+###Cuentas
+Hay **dos tipos de cuentas** en Ethereum que comparten el mismo espacio de direcciones: **Cuentas de Usuario** que son controladas por _pares de llaves pública y privada_ custodiadas directa o indirectamente por uno o varios sujetos, y **Cuentas de Contratos** que son controladas por el propio _código almacenado_ junto con la cuenta. 
 
-Primero generas la Llave Privada de 64hex: Un número entero positivo aleatoriamente seleccionado (representado por una tabla de bytes con una longitud de 32 en formato big-endian) en el rango [1, secp256k1n − 1]. Entonces creas la Llave Pública de 64 bytes desde la llave privada usando el Algoritmo de Curva Elíptica de Firma Digital (ECDSA). La llave privada es creada aleatoriamente, pero la llave pública y el hash que se utiliza como dirección no es aleatorio. Las direcciones de Ethereum son hashes de la llave pública. Para generar uno tienes que generar la llave privada primero. Entonces creas la dirección usando la llave pública de 64 bytes. Calcula el hash Keccak-256 de la llave pública. Deberías ahora tener una cadena de 32 bytes (nota: SHA3-256 se terminó convirtiendo en standard pero Ethereum usa Keccack). Toma los últimos 20 bytes de esta llave pública  (Keccak-256). O, en otras palabras, elimina los primeros 12 bytes. Estos 20 bytes son la dirección, 40 carácteres. Cuando se le añade el prefijo 0x pasa a tener los 42 carácteres de largo.
+Las **Cuentas de Usuario** están determinadas por las llaves públicas y éstas por las llaves privadas. Primero generas la **Llave Privada** de 64hex: Un número entero positivo aleatoriamente seleccionado (representado por una tabla de bytes con una longitud de 32 en formato big-endian) en el rango [1, secp256k1n − 1]. Entonces creas la **Llave Pública** de 64 bytes desde la llave privada usando el _Algoritmo de Curva Elíptica de Firma Digital (ECDSA)_. La llave privada es creada aleatoriamente, pero la llave pública y el hash que se utiliza como dirección no es aleatorio. Las **Direcciones** de Ethereum son hashes de la llave pública. Para generar uno tienes que generar la llave privada primero. Entonces creas la dirección usando la llave pública de 64 bytes. Calcula el hash _Keccak-256_ de la llave pública. Deberías ahora tener una cadena de 32 bytes (nota: SHA3-256 se terminó convirtiendo en standard tras ser apoyada por el _NIST_ pero Ethereum usa Keccack). Toma los últimos 20 bytes de esta llave pública  (Keccak-256). O, en otras palabras, elimina los primeros 12 bytes. Estos 20 bytes son la dirección, 40 carácteres. Cuando se le añade el prefijo 0x pasa a tener los 42 carácteres de largo.
 
 Convierte llaves públicas en direcciones [modificar main.c y genKATShortMsg.cpp de KeccakTools con los cambios mencionados dará la posibilidad de calcular las direcciones](https://github.com/gvanas/KeccakTools)
 
@@ -36,7 +36,7 @@ Convierte llaves públicas en direcciones [modificar main.c y genKATShortMsg.cpp
 <li><a href="https://www.ethereum.org/pdfs/EtherProductPurchaseAgreement.pdf">Ether Product Purchase Agreement</a></li>
 
 ###Antecedentes
-Bitcoin, Hashcash, Criptografía asimétrica, zSNARKS, Protocolos de Estado y la cuantización del tiempo
+Bitcoin, Hashcash, Criptografía asimétrica, zSNARKS, Protocolos de Estado, Tokenización
 
 ##Clients
 Go https://github.com/ethereum/go-ethereum/wiki/geth
