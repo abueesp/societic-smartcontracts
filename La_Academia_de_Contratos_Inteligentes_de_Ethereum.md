@@ -1,4 +1,4 @@
-¡Bienvenid@ a la **Academia de Smart Contracts** en español! Este espacio tiene el propósito de presentar una guía introductoria, útil y sencilla, para todos aquellos que deseen empezar a comprender esta tecnología. 
+¡Bienvenid@ a la **Academia de Smart Contracts de Ethereum** en español! Este espacio tiene el propósito de presentar una guía introductoria, útil y sencilla, para todos aquellos que deseen empezar a comprender esta tecnología. 
 
 ### ¿Qué es Ethereum?
 
@@ -14,11 +14,15 @@ Smart contracts son piezas de código que se valen de un elemento de estado de c
 
 Cada ***smart contract (contract)*** consta de ***estructuras (struct)***, ***funciones (func)*** y ***estados (state)***, y es ejecutado en [cada nodo](http://ethernodes.org/network/1) de Ethereum simultáneamente, los cuales consensuan su resultado de forma distribuida. El [Ethereum Development Tutorial](https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial) hace notar que el coste de hacer uso de un poder de computación de una EVM tan confiable como ésta es tan alto, que, a efectos prácticos, en términos de carga y optimización se afirma que no debería pensar en programarse algo "que no pudieras ejecutar en un teléfono inteligente del año 1999.
 
-### Ether y gas fee
-La empleada en Ethereum es el éter (ether), una unidad de cuenta con [18 decimales](http://ether.fund/tool/converter), que es usada para pagar por la capacidad de procesamiento de la red. Para su desarrollo financiero inicial Ethereum realizó la venta de micromecenazgo (crowdfunding sale) de 60.102.216 éters que estuvo abierta del 7/23/2014 al 9/2/2014, llamada ***[the Genesis Presale](https://www.ethereum.org/pdfs/TermsAndConditionsOfTheEthereumGenesisSale.pdf)***, obteniendo 31.591 BTC, que correspondieron a [18.439.086 dólares estadounidenses](http://ether.fund/market) en aquel momento.
+### Ether y gas
+La unidad empleada en Ethereum es el éter (ether), una unidad de cuenta con [18 decimales](http://ether.fund/tool/converter), que es usada para pagar por la capacidad de procesamiento de la red. Para su desarrollo financiero inicial Ethereum realizó la venta de micromecenazgo (crowdfunding sale) de 60.102.216 éters que estuvo abierta del 7/23/2014 al 9/2/2014, llamada ***[the Genesis Presale](https://www.ethereum.org/pdfs/TermsAndConditionsOfTheEthereumGenesisSale.pdf)***, obteniendo 31.591 BTC, que correspondieron a [18.439.086 dólares estadounidenses](http://ether.fund/market) en aquel momento.
 http://ether.fund/tool/calculator gas fee y gas price
 http://ether.fund/tool/gas-price gas price graph
       <article class="markdown-body entry-content" itemprop="text"><p>Sale documents:</p>
+
+Cada operación es cargada con una cierta suma de gas, cuyo propósito es limitar la cantidad de trabajo que es necesidatada para ejecutar la transacción y pagar por su ejecución. Con ello se procura evitar el spam y mantener la estabilidad de la red. Mientras la EVM ejecuta la transacción, el gas es gradualmente consumidor de acuerdo con reglas específicas.
+
+El precio del gas o `gas price` es un valor determinado por el creador de la transacción que es quien paga el mismo por ejecutar dicha llamada a un contrato o realizar una transacción. Si algo de gas sobra tras la ejecución, le es devuelto. Si el gas se termina antes de alcanzarse el requerido, se desencadena una excepción `out of gas`, la cual revierte todas las modificaciones hechas al estado por el actual llamda (`call frame`).
       
 ###Cuentas
 Hay **dos tipos de cuentas** en Ethereum que comparten el mismo espacio de direcciones: **Cuentas de Usuario** que son controladas por _pares de llaves pública y privada_ custodiadas directa o indirectamente por uno o varios sujetos, y **Cuentas de Contratos** que son controladas por el propio _código almacenado_ junto con la cuenta. 
@@ -38,6 +42,48 @@ Convierte llaves públicas en direcciones [modificar main.c y genKATShortMsg.cpp
 
 3. Serenity: La transación al nuevo protocolo y actualizaciones de escalabilidad para ser implantable a nivel industrial.
 
+
+
+###Storage, Memory and the Stack
+
+Each account has a persistent memory area which is called storage. Storage is a key-value store that maps 256 bit words to 256 bit words. It is not possible to enumerate storage from within a contract and it is comparatively costly to read and even more so, to modify storage. A contract can neither read nor write to any storage apart from its own.
+
+The second memory area is called memory, of which a contract obtains a freshly cleared instance for each message call. Memory can be addressed at byte level, but read and written to in 32 byte (256 bit) chunks. Memory is more costly the larger it grows (it scales quadratically).
+
+The EVM is not a register machine but a stack machine, so all computations are performed on an area called the stack. It has a maximum size of 1024 elements and contains words of 256 bits. Access to the stack is limited to the top end in the following way: It is possible to copy one of the topmost 16 elements to the top of the stack or swap the topmost element with one of the 16 elements below it. All other operations take the topmost two (or one, or more, depending on the operation) elements from the stack and push the result onto the stack. Of course it is possible to move stack elements to storage or memory, but it is not possible to just access arbitrary elements deeper in the stack without first removing the top of the stack.
+Instruction Set
+
+The instruction set of the EVM is kept minimal in order to avoid incorrect implementations which could cause consensus problems. All instructions operate on the basic data type, 256 bit words. The usual arithmetic, bit, logical and comparison operations are present. Conditional and unconditional jumps are possible. Furthermore, contracts can access relevant properties of the current block like its number and timestamp.
+Message Calls
+
+Contracts can call other contracts or send Ether to non-contract accounts by the means of message calls. Message calls are similar to transactions, in that they have a source, a target, data payload, Ether, gas and return data. In fact, every transaction consists of a top-level message call which in turn can create further message calls.
+
+A contract can decide how much of its remaining gas should be sent with the inner message call and how much it wants to retain. If an out-of-gas exception happens in the inner call (or any other exception), this will be signalled by an error value put onto the stack. In this case, only the gas sent together with the call is used up. In Solidity, the calling contract causes a manual exception by default in such situations, so that exceptions “bubble up” the call stack.
+
+As already said, the called contract (which can be the same as the caller) will receive a freshly cleared instance of memory and has access to the call payload - which will be provided in a separate area called the calldata. After it finished execution, it can return data which will be stored at a location in the caller’s memory preallocated by the caller.
+
+Calls are limited to a depth of 1024, which means that for more complex operations, loops should be preferred over recursive calls.
+Delegatecall / Callcode and Libraries
+
+There exists a special variant of a message call, named delegatecall which is identical to a message call apart from the fact that the code at the target address is executed in the context of the calling contract and msg.sender and msg.value do not change their values.
+
+This means that a contract can dynamically load code from a different address at runtime. Storage, current address and balance still refer to the calling contract, only the code is taken from the called address.
+
+This makes it possible to implement the “library” feature in Solidity: Reusable library code that can be applied to a contract’s storage in order to e.g. implement a complex data structure.
+Logs
+
+It is possible to store data in a specially indexed data structure that maps all they way up to the block level. This feature called logs is used by Solidity in order to implement events. Contracts cannot access log data after it has been created, but they can be efficiently accessed from outside the blockchain. Since some part of the log data is stored in bloom filters, it is possible to search for this data in an efficient and cryptographically secure way, so network peers that do not download the whole blockchain (“light clients”) can still find these logs.
+Create
+
+Contracts can even create other contracts using a special opcode (i.e. they do not simply call the zero address). The only difference between these create calls and normal message calls is that the payload data is executed and the result stored as code and the caller / creator receives the address of the new contract on the stack.
+Selfdestruct
+
+The only possibility that code is removed from the blockchain is when a contract at that address performs the SELFDESTRUCT operation. The remaining Ether stored at that address is sent to a designated target and then the storage and code is removed.
+
+Note that even if a contract’s code does not contain the SELFDESTRUCT opcode, it can still perform that operation using delegatecall or callcode.
+
+
+###Documentación
 <ul>
 <li><a href="https://www.ethereum.org/pdfs/IntendedUseOfRevenue.pdf">Intended use of revenue</a></li>
 <li><a href="https://www.ethereum.org/pdfs/%C4%90%CE%9EVPLAN.pdf">ĐΞV plan</a></li>
