@@ -27,6 +27,13 @@ Las **Cuentas de Usuario** están determinadas por las llaves públicas y éstas
 
 Convierte llaves públicas en direcciones [modificar main.c y genKATShortMsg.cpp de KeccakTools con los cambios mencionados dará la posibilidad de calcular las direcciones](https://github.com/gvanas/KeccakTools)
 
+##Version Milestone
+[Ethereum Launch Process](https://blog.ethereum.org/2015/03/03/ethereum-launch-process/):
+0. Frontier: La primera versión, el "salvaje Oeste".
+1. Homestead: Una red más estable.
+2. Metropolis: Un ecosistema diverso de software sencillo de usar, incluyendo Mist -el explorador de Dapps- y herramientas como el Mix -IDE-. A partir de este punto ya no se considera beta.
+3. Serenity: La transación al nuevo protocolo y actualizaciones de escalabilidad para ser implantable a nivel industrial.
+
 <ul>
 <li><a href="https://www.ethereum.org/pdfs/IntendedUseOfRevenue.pdf">Intended use of revenue</a></li>
 <li><a href="https://www.ethereum.org/pdfs/%C4%90%CE%9EVPLAN.pdf">ĐΞV plan</a></li>
