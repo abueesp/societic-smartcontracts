@@ -44,7 +44,7 @@ Convierte llaves públicas en direcciones [modificar main.c y genKATShortMsg.cpp
 
 
 
-###Almacenamiento, memoria y la pila (`Stack`)
+###Almacenamiento, memoria y pila
 
 Cada cuenta tiene una primera área de memoria persistente la cual es llamada **Almacenamiento** (`storage`). El Almacenamiento es un valor-llave almacenado que mapea Palabras (`words`) de 256 bits/32bytes. No es posible enumerar el Almacenamiento desde dentro del contrato y es comparativamente costoso de leer y, incluso más, modificar lo almacenado. Un contrato no puede ni leer ni escribir ningún almacenamiento aparte del suyo.
 
