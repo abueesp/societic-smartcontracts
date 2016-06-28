@@ -56,28 +56,29 @@ La EVM no es una máquina de registro de entradas de bases de datos, sino una [p
 
 El Set de Instrucciones de la EVM es guardado en su mínima expresión para evitar incorrectas implementaciones las cuales podrían causar problemas. Todas las instrucciones operan en el más básico tipo de dato, Palabras de 256 bits. La aritmética habitual presenta operaciones compartivas con lógica binaria. Así, saltos condicionales o incondicionales son posibles. Además, los contratos pueden acceder propiedades relevates del bloque actual, como son su número y timestamp.
 
-##Llamadas de mensaje
+###Llamadas
+
+####Llamadas de mensaje
 Los contratos pueden llamar otras Cuentas de Contratos o enviar ethers a Cuentas de Usuario. Los Contratos pueden llamar otros contratos o enviar ethers a Cuentas de usuario mediante **Llamadas de mensaje** (`mensaje calls`). Las Llamadas de mensaje son similares a las transaciciones, en las que **tienen una dirección fuente, una dirección objetivo, un payload de datos, ethers, gas y `return data`**. De hecho, cada transacción consiste en una Llamada de mensaje de nivel superior la cual a su vez puede crear otras llamadas de mensaje.
 
 Un contrato que realize una llamada (`caller`) puede decidir cuánto de su gas remanente debería ser enviado con la Llamada de mensaje interna y cuánto querría retener. Si una `out-of-gas exception` o cualquier otra excepción ocurre en la llamada interna, esto será señalado por un valor erróneo puesto en la pila. En este caso, sólo el gas enviado junto con la llamada es utilizado. En Solidity, la llamada del contrato causa una excepción manual por defecto en tales situaciones, de tal forma que las excepciones son anuladas haciendo rebosar la Pila de llamadas.
 
 Será de la Memoria de donde el contrato obtendrá un ejemplo nuevo en blanco para cada llamada de mensaje (`message call`) y obtiene acceso a la Llamada payload -la cual será provista en una área separada llamada `calldata`. Después de haber finalizado su ejecución, puede retornar datos lo cuales serán almacenados en la Memoria de llamada previamente determinada por el contrato que realiza la llamada. Las llamadas son limitadas a la profundidad de 1024, lo cual significa que durante operaciones más complejas, los `loops` deberían ser preferidos sobre las llamadas recursivas (`recursive calls`) -optimización-.
 
-### Llamadas delegadas / Librerías y código de llamadas
+#### Llamadas delegadas / Librerías y código de llamadas
 
 Ahí existe una especial variante de la llamada de mensaje, denominada **Llamadas delegadas** (`delegatecall`) que es idéntica a las llamadas de mensaje excepto por el hecho de que el código es ejecutado en el contexto del contrato llamador (su dirección objetivo siempre le pertenece) por lo que el msg.sender y el msg.value no cambian sus valores. Esto significa que el contrato puede dinamicamente cargar código de diferentes direcciones sobre la marcha. Almacenamiento, la dirección actual y el balance todavía se refieren al contrato que llama, sólo **tienen `payload de datos` y el `return data`**. Esto hace posible implementar la propiedad "librería" en Solidity: Librerías de código reutilizable que puede se raplicado a un contrato almacenado a fin de, por ejemplo, implementar estructuras más complejas. 
 
-###Logs
+####Llamadas al registro de llamadas
 
-It is possible to store data in a specially indexed data structure that maps all they way up to the block level. This feature called logs is used by Solidity in order to implement events. Contracts cannot access log data after it has been created, but they can be efficiently accessed from outside the blockchain. Since some part of the log data is stored in bloom filters, it is possible to search for this data in an efficient and cryptographically secure way, so network peers that do not download the whole blockchain (“light clients”) can still find these logs.
-Create
+Es posible almacenar datos en una estructura de datos especialmente indexada que mapee todos ellos hasta bien entrado el nivel del bloque. Esta propiedad de ir recopilando **Registros de llamadas** (`called logs`) es usada por Solidity a fin de implementar un histórico de eventos. Los contratos no pueden acceder llamadas a los logs después de que hayan sido creados, pero pueden eficientemente acceder desde fuera de la blockchain. Mientras que los datos de registro de llamadas esté almacenado en filtros bloom es posible buscar estos datos de una forma eficiente y criptográficamente segura, de tal forma que los pares de la red que no han descargado toda la blockchain (`light clients`) pueden aún así encontrar dichos registros. Los [filtros de Bloom](https://en.wikipedia.org/wiki/Bloom_filter) sirven para preguntar si un elemento está en un conjunto, y la respuesta puede ser "no, el elemento no está en el conjunto", de forma rotunda, siempre fiable, o bien "puede ser que el elemento esté en el conjunto", con un grado de certidumbre aproximado. De esta manera, Ethereum usa filtros bloom para verificar que se ha realizado una operación sin tener que consultar la información en toda la red.
 
-Contracts can even create other contracts using a special opcode (i.e. they do not simply call the zero address). The only difference between these create calls and normal message calls is that the payload data is executed and the result stored as code and the caller / creator receives the address of the new contract on the stack.
-Selfdestruct
 
-The only possibility that code is removed from the blockchain is when a contract at that address performs the SELFDESTRUCT operation. The remaining Ether stored at that address is sent to a designated target and then the storage and code is removed.
-
-Note that even if a contract’s code does not contain the SELFDESTRUCT opcode, it can still perform that operation using delegatecall or callcode.
+####Llamadas de creación de contratos
+Los contratos pueden incluso crear otros contratos usando un operador (`opcode`) especial, y no únicamente llamar a direcciones. La única diferencia entre estas **Llamadas de creación de contratos** (`create calls`) y las Llamadas de mensaje (`mensage call`) corrientes es que el `payload data` es ejecutado y el resultado almacenado como código y el contrato que realiza la llamada de creación recibe la dirección del nuevo contrato en la Pila de llamadas.
+.
+####Llamadas de autodestrucción 
+La única posibilidad en la que un código puede ser retirado de la blockchain es cuando un contrato llama (`selfdestruct call`) a la dirección que realiza la operación de autodestrucción (`SELFDESTRUCT`). Los ethers sobrantes almacenados en la dirección son enviados a una dirección objetivo determinada y entonces el cógigo y el Almacenamiento son retirados. Fíjate que incluso si el código del contrato no contiene el operador SELFDESTRUCT, todavía puede llevar a cabo dicha operación usando `delegatecall` o `callcode`.
 
 
 ###Documentación
