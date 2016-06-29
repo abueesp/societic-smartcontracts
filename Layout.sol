@@ -1,4 +1,4 @@
-//IMPORTING SOURCE FILES: import context:prefix=target as alias from context:prefix=target
+//1. IMPORTING SOURCE FILES: import context:prefix=target as alias from context:prefix=target
 
 import "filename";
 import * as symbolName from "filename";
@@ -27,7 +27,7 @@ solc module1:github.com/ethereum/dapp-bin/=/usr/local/dapp-bin/ \
 import "github.com/ethereum/dapp-bin/library/iterable_mapping.sol" as it_mapping;.
 
 
-//COMMENTS // /* */
+//2. COMMENTS // /* */
 // This is a single-line comment.
 
 /*
@@ -37,4 +37,23 @@ multi-line comment.
 // Additionally, there is another type of comment called a natspec comment, for which the documentation is not yet written. They are written with a triple slash (///) or a double asterisk block(/** ... */) and they should be used directly above function declarations or statements. 
 
 
+//3. STRUCTURE OF A CONTRACT contract NameoftheContract {..}
+//  Each contract can contain declarations of // State Variables, Functions, Function Modifiers, Events, Structs Types and Enum Types. 
+//  Furthermore, contracts can inherit from other contracts.
 
+
+//3.1. STATE VARIABLES
+contract SimpleStorage {
+    uint storedData; // State variable
+    // ...
+}
+
+//3.2. FUNCTIONS
+
+//3.3. FUNCTION MODIFIERS
+
+//4.4. EVENTS
+
+//4.5. STRUCTS TYPES
+
+//4.6. ENUM TYPES
