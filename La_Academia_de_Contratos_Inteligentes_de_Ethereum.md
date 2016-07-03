@@ -19,7 +19,7 @@ La unidad empleada en Ethereum es el éter (ether), una unidad de cuenta con [18
 http://ether.fund/tool/calculator gas fee y gas price
 http://ether.fund/tool/gas-price gas price graph
 
-Cada operación es cargada con una cierta suma de gas, cuyo propósito es limitar la cantidad de trabajo que es necesidatada para ejecutar la transacción y pagar por su ejecución. Con ello se procura evitar el spam y mantener la estabilidad de la red. Mientras la EVM ejecuta la transacción, el gas es gradualmente consumido de acuerdo con reglas específicas.
+Cada operación es cargada con una cierta suma de gas, cuyo propósito es limitar la cantidad de trabajo que es necesitada para ejecutar la transacción y pagar por su ejecución. Con ello se procura evitar el spam y mantener la estabilidad de la red. Mientras la EVM ejecuta la transacción, el gas es gradualmente consumido de acuerdo con reglas específicas.
 
 El precio del gas o `gas price` es un valor determinado por el creador de la transacción que es quien paga el mismo por ejecutar dicha llamada a un contrato o realizar una transacción. Si algo de gas sobra tras la ejecución, le es devuelto. Si el gas se termina antes de alcanzarse el requerido, se desencadena una excepción `out of gas`, la cual revierte todas las modificaciones hechas al estado por el actual llamda (`call frame`).
       
@@ -29,7 +29,6 @@ Hay **dos tipos de cuentas** en Ethereum que comparten el mismo espacio de direc
 Las **Cuentas de Usuario** están determinadas por las llaves públicas y éstas por las llaves privadas. Primero generas la **Llave Privada** de 64hex: Un número entero positivo aleatoriamente seleccionado (representado por una tabla de bytes con una longitud de 32 en formato big-endian) en el rango [1, secp256k1n − 1]. Entonces creas la **Llave Pública** de 64 bytes desde la llave privada usando el _Algoritmo de Curva Elíptica de Firma Digital (ECDSA)_. La llave privada es creada aleatoriamente, pero la llave pública y el hash que se utiliza como dirección no es aleatorio. Las **Direcciones** de Ethereum son hashes de la llave pública. Para generar uno tienes que generar la llave privada primero. Entonces creas la dirección usando la llave pública de 64 bytes. Calcula el hash _Keccak-256_ de la llave pública. Deberías ahora tener una cadena de 32 bytes (nota: SHA3-256 se terminó convirtiendo en standard tras ser apoyada por el _NIST_ pero Ethereum usa Keccack). Toma los últimos 20 bytes de esta llave pública  (Keccak-256). O, en otras palabras, elimina los primeros 12 bytes. Estos 20 bytes son la dirección, 40 carácteres. Cuando se le añade el prefijo 0x pasa a tener los 42 carácteres de largo.
 
 Convierte llaves públicas en direcciones [modificar main.c y genKATShortMsg.cpp de KeccakTools con los cambios mencionados dará la posibilidad de calcular las direcciones](https://github.com/gvanas/KeccakTools)
-
 ###Versiones
 [Ethereum Launch Process Milestone](https://blog.ethereum.org/2015/03/03/ethereum-launch-process/):
 
