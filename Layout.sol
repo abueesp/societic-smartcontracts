@@ -128,11 +128,18 @@ contract C {
 //Arrays can have a compile-time fixed size or they can be dynamic. An array of fixed size k and element type T is written as T[k], an array of dynamic size as T[].
 //An array of 5 dynamic arrays of uint is uint[][5] (note that the notation is reversed when compared to some other languages). 
 //To access the second uint in the third dynamic array, you use x[2][1] (indices are zero-based and access works in the opposite way of the declaration, i.e. x[2] shaves off one level in the type from the right).
-///5.2.1.For storage arrays, the element type can be arbitrary (i.e. also other arrays, mappings or structs). 
-///5.2.2.For memory arrays, it cannot be a mapping and has to be an ABI type if it is an argument of a publicly-visible function. As opposed to storage arrays, it is not possible to resize or allocate memory arrays by assigning to the .length member.
+///5.2.1.For storage arrays, the element type can be arbitrary (i.e. also other arrays, mappings or structs).
+////Allocation: It is possible to resize memory storage arrays by assigning to the .length member.
+///5.2.2.For memory arrays, it cannot be a mapping and has to be an ABI type if it is an argument of a publicly-visible function. 
+////Allocation: Memory arrays can be allocated with variable length in memory can be done using the `new` keyword.
 ///5.2.3.Variables of type bytes and string are special arrays. 
 ////5.2.3.1. A bytes is similar to byte[], but it is packed tightly in calldata. So bytes should always be preferred over byte[] because it is cheaper
 ////5.2.3.2. String is equal to bytes but does not allow length or index access (for now). If you want to access the byte-representation of a string s, use bytes(s).length / bytes(s)[7] = 'x';. Keep in mind that you are accessing the low-level bytes of the utf-8 representation, and not the individual characters!
+///5.2.4.1. Array literals are arrays that are written as an expression and are not assigned to a variable right away.
+
+//Allocating Memory Arrays
+//Creating arrays with  
+//As opposed to storage arrays, it is not possible to resize memory arrays by assigning to the .length member.
 
 contract C {
     function f(uint len) {
@@ -142,8 +149,7 @@ contract C {
         a[6] = 8;
     }
 }
-Array Literals / Inline Arrays
-Array literals are arrays that are written as an expression and are not assigned to a variable right away.
+
 
 contract C {
     function f() {
@@ -157,11 +163,10 @@ The type of an array literal is a memory array of fixed size whose base type is 
 
 contract C {
     function f() {
-        // The next line creates a type error because uint[3] memory
-        // cannot be converted to uint[] memory.
+        // The next line creates a type error because uint[3] memory cannot be converted to uint[] memory.
+        // It is planned to remove this restriction but currently creates problems on how arrays are passed in the ABI.
         uint[] x = [uint(1), 3, 4];
 }
-It is planned to remove this restriction in the future but currently creates some complications because of how arrays are passed in the ABI.
 
 Members
 length:
