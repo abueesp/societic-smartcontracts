@@ -74,7 +74,7 @@ if (x.balance < 10 && myAddress.balance >= 10)
 
 x.send(10);
 
-//// 3.2.3 call: Members of Addresses: To interface with contracts that do not adhere to the ABI, the function call is provided which takes an arbitrary number of arguments of any type. These arguments are padded to 32 bytes and concatenated (256 bits). One exception is the case where the first argument is encoded to exactly four bytes. In this case, it is not padded to allow the use of function signatures here. WHAT MEANS PADDED. call returns a boolean indicating whether the invoked function terminated (true) or caused an EVM exception (false). It is not possible to access the actual data returned (for this we would need to know the encoding and size in advance).
+//// 3.2.3 call: Members of Addresses: To interface with contracts that do not adhere to the ABI, the function call is provided which takes an arbitrary number of arguments of any type. These arguments are modified to 32 bytes (if less, it adds 0s) and concatenated (256 bits). One exception is the case where the first argument is encoded to exactly four bytes. In this case, if minor of four bytes no 0s are added, in order to allow the use of function signatures here. call returns a boolean indicating whether the invoked function terminated (true) or caused an EVM exception (false). It is not possible to access the actual data returned (for this we would need to know the encoding and size in advance).
 
 address nameReg = 0x72ba7d8e73fe8eb666ea66babc8116a41bfb10e2;
 nameReg.call("register", "MyName");
