@@ -24,7 +24,7 @@ Cada operación es cargada con una cierta suma de gas, cuyo propósito es limita
 El precio del gas o `gas price` es un valor determinado por el creador de la transacción que es quien paga el mismo por ejecutar dicha llamada a un contrato o realizar una transacción. Si algo de gas sobra tras la ejecución, le es devuelto. Si el gas se termina antes de alcanzarse el requerido, se desencadena una excepción `out of gas`, la cual revierte todas las modificaciones hechas al estado por el actual llamda (`call frame`).
       
 ###Cuentas
-Hay **dos tipos de cuentas** en Ethereum que comparten el mismo espacio de direcciones: **Cuentas de Usuario** que son controladas por _pares de llaves pública y privada_ custodiadas directa o indirectamente por uno o varios sujetos, y **Cuentas de Contratos** que son controladas por el propio _código almacenado_ junto con la cuenta. 
+Hay **dos tipos de cuentas** en Ethereum que comparten el mismo espacio de direcciones: **Cuentas de Usuario** que son controladas por _pares de llaves pública y privada_ custodiadas directa o indirectamente por uno o varios sujetos, y **Cuentas de Contratos** que son controladas por el propio _código almacenado_ junto con la cuenta. A octubre de 2016 las cuentas de contratos representan un 10% de las cuentas totales.
 
 Las **Cuentas de Usuario** están determinadas por las llaves públicas y éstas por las llaves privadas. Primero generas la **Llave Privada** de 64hex: Un número entero positivo aleatoriamente seleccionado (representado por una tabla de bytes con una longitud de 32 en formato big-endian) en el rango [1, secp256k1n − 1]. Entonces creas la **Llave Pública** de 64 bytes desde la llave privada usando el _Algoritmo de Curva Elíptica de Firma Digital (ECDSA)_. La llave privada es creada aleatoriamente, pero la llave pública y el hash que se utiliza como dirección no es aleatorio. Las **Direcciones** de Ethereum son hashes de la llave pública. Para generar uno tienes que generar la llave privada primero. Entonces creas la dirección usando la llave pública de 64 bytes. Calcula el hash _Keccak-256_ de la llave pública. Deberías ahora tener una cadena de 32 bytes (nota: SHA3-256 se terminó convirtiendo en standard tras ser apoyada por el _NIST_ pero Ethereum usa Keccack). Toma los últimos 20 bytes de esta llave pública  (Keccak-256). O, en otras palabras, elimina los primeros 12 bytes. Estos 20 bytes son la dirección, 40 carácteres. Cuando se le añade el prefijo 0x pasa a tener los 42 carácteres de largo.
 
@@ -120,6 +120,20 @@ https://blog.ethereum.org/2014/10/03/slasher-ghost-developments-proof-stake/
 http://coinmarketcap.com/currencies/ethereum/#markets
 
 https://tradeblock.com/markets/krkn/eth-xbt/1h/
+
+### Pools
+
+No registration required
+1. http://ethereumpool.co/ - 0.8% fees. Payouts released 2 times a day for balances higher than 0.5 ETH.
+2. http://dwarfpool.com/ - 2% fees. Payouts released 4-6 times a day for balances higher than 1 ETH.
+3. http://weipool.org/ - 0% fees. Payouts released every 24 hours for balances higher than 1 ETH.
+4. http://ethpool.org/ - Predictable Solo Mining pool. 0% fees. Payouts after 10 confirmations. More info on @dr_pra comments below.
+5. http://nanopool.org/ - PPLNS 1% fees. Payouts released 2 times a day for balances higher than 0.1 ETH.
+
+Requires registration
+1. https://eth.suprnova.cc/ - 1% fees. Payouts are up to the miner (Manual or Automatic from 0.01 ETH).
+2. https://coinotron.com - PPLNS 1 % fees. RBPPS 4% fees. Payouts are up to the miner (Manual from 0.1 ETH).
+3. https://www2.coinmine.pl/eth/index.php - 1% fees. 
 
 ### Programming
 
