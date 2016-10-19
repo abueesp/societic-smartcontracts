@@ -110,6 +110,13 @@ JS https://github.com/ethereumjs/node-blockchain-server
 
 Mist https://github.com/tgerring/mist
 
+###Ghost Protocol Uncle Blocks
+
+https://github.com/ethereum/wiki/wiki/White-Paper#modified-ghost-implementation
+
+https://blog.ethereum.org/2014/10/03/slasher-ghost-developments-proof-stake/
+
+
 ### POS
 https://blog.ethereum.org/2014/11/25/proof-stake-learned-love-weak-subjectivity/
 
