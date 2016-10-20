@@ -199,7 +199,7 @@ ethjsonrpc https://github.com/ConsenSys/ethjsonrpc
 
 Mist Wallet https://github.com/ethereum/mist
 
-MyEtherWallet Javascript Client-Side Key Pair Generator https://www.myetherwallet.com/  (old etheraddress.org) https://github.com/kvhnuke/etherwallet Bulk Encrypted SendOffline
+MyEtherWallet Javascript Client-Side Key Pair Generator https://www.myetherwallet.com/  (old etheraddress.org) https://github.com/kvhnuke/etherwallet Bulk Raw Txs (also in https://etherscan.io/pushTx)
 
 JS Cold Wallet Generator https://github.com/ryepdx/ethaddress.org -> Trust here https://www.reddit.com/r/ethereum/comments/3jz85n/ethaddressorg_paper_wallets_for_ethereum/ Bulk Encrypted Vanity Split
 
@@ -283,8 +283,16 @@ Offchain processing https://github.com/ConsenSys/Flare
 Encrypted queries, dapp stackexchange, identity registry and so forth from Oraclize https://github.com/oraclize
 API contract https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI.sol Eth examples https://github.com/oraclize/ethereum-examples
 
-
 How to deploy a DAO https://github.com/slockit/DAO/wiki/How-To-Deploy-A-DAO-%5Bnon-devs%5D
+
+##Identity
+
+https://uport.me/#home
+
+https://github.com/pipermerriam/devcon2-token
+
+https://etherscan.io/verifiedSignatures 
+
 
 ##Games
 FirstBlood https://firstblood.io/
