@@ -129,7 +129,7 @@ http://coinmarketcap.com/currencies/ethereum/#markets
 https://tradeblock.com/markets/krkn/eth-xbt/1h/
 
 ### Pools
-
+https://etherscan.io/stats/miner?range=7&blocktype=blocks
 No registration required
 1. http://ethereumpool.co/ - 0.8% fees. Payouts released 2 times a day for balances higher than 0.5 ETH.
 2. http://dwarfpool.com/ - 2% fees. Payouts released 4-6 times a day for balances higher than 1 ETH.
