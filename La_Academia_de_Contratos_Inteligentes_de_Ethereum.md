@@ -285,6 +285,12 @@ API contract https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI.so
 
 How to deploy a DAO https://github.com/slockit/DAO/wiki/How-To-Deploy-A-DAO-%5Bnon-devs%5D
 
+##ERC
+
+https://github.com/ethereum/EIPs/issues/20
+
+https://etherscan.io/token-search
+
 ##Identity
 
 https://uport.me/#home
