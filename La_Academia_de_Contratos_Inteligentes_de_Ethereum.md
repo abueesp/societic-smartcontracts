@@ -78,6 +78,19 @@ Los contratos pueden incluso crear otros contratos usando un operador (`opcode`)
 ####Llamadas de autodestrucción 
 La única posibilidad en la que un código puede ser retirado de la blockchain es cuando un contrato llama (`selfdestruct call`) a la dirección que realiza la operación de autodestrucción (`SELFDESTRUCT`). Los ethers sobrantes almacenados en la dirección son enviados a una dirección objetivo determinada y entonces el cógigo y el Almacenamiento son retirados. Fíjate que incluso si el código del contrato no contiene el operador SELFDESTRUCT, todavía puede llevar a cabo dicha operación usando `delegatecall` o `callcode`.
 
+###Comunicación entre nodos: Descubrimiento, Transporte Encriptado, Enmarcado y Control del Flujo
+Las comunicaciones peer-to-peer entre los nodos usan el (Protocolo Wire)(https://github.com/ethereum/wiki/wiki/%C3%90%CE%9EVp2p-Wire-Protocol) de (Ethereum)(https://github.com/ethereum/wiki/wiki/Ethereum-Wire-Protocol), un set de operadores y mensajes y su traducción correspondiente en hexadecimal. El Protocolo Wire fue basado en el [Protocolo RLP https://github.com/ethereum/wiki/wiki/RLP], siguiendo la [Especificación de Comunicación y Descubrimiento de Nodos RLPx https://github.com/ethereum/devp2p/blob/master/rlpx.md].
+
+###Árboles de Patricia Merkle y Clientes ligeros
+En Ethereum los datos son almacenados en una estructura de datos denominado (Árbol de Patricia Merkle)(https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree), una estructura de árbol donde (cada nodo en el árbol es el hash del siguiente)(https://easythereentropy.wordpress.com/2014/06/04/understanding-the-ethereum-trie/). Cada set de parejas de llaves o valores mapea a un único hash raíz, y sólo un pequeño subset de nodos es necesitado para probar que una combinación de llaves/valores corresponde a un hash raíz particular del árbol. El tamaño de la complejidad de una prueba de Merkle escala linearmente con la altura del árbol; porque cada nodo del árbol tiene un número particular de nodos hijos (en nuestro caso, hasta 17), esto significa que el tamaño de la complejidad de una prueba Merkle es logarítima (es decir, O~log(n)) respecto a la cantidad de datos almacenados. Esto significa que, incluso si el árbol de estados completo tiene unos pocos gigabytes de tamaño, si un nodo recibe el estado raíz desde una fuente de confianza, dicho nodo tiene la habilidad de saber con total certeza la validez de cualquier información con árbol apenas descargando unos pocos kilobytes de datos como prueba (es decir, el hash es capaz de representar exactamente al bloque).
+
+Una prueba SPV (Prueba Simple de Verificación) de un nodo en un árbol de Patricia consiste simplemente en un subset completo de tres nodos que fueron procesados a fin de acceder (o, más específicamente, los nodos árboles que necesitaban ser buscados en una base de datos que tuviera la capacidad de hacer búsquedas inversas de hashes). En una simple implementación de un ábol de Patricia, tomadno el valor asociado con una llave particular, se requiere desceder el ábrol hash, constamente buscando nodos en la base de datos por sus hashes, hasta que finalmente se alcanza el nodo final de la última rama; un simple algoritmo que produjera una prueba SPV lo que haría sería usar este sencillo algoritmo y grabar todas las búsquedas que fuesen hechas en la base de datos. La verificación SPV consistiría entonces en correr este sencillo algoritmo de búsqueda pero apuntando éste a la base de datos provista únicamente por los nodos en la prueba SPV; si hay un error y el nodo se encuentra, entonces la prueba es inválida.
+
+El propósito de un cliente ligero es permitir a los usuarios en entornos de baja capacidad (sistemas embebidos de propiedad inteligente, teléfonos inteligentes y no tan inteligentes, extensiones de exploradores, equipos de escritorio ligeros, etcétera) a mantener una seguridad alta sobre el estado actual de una parte concreta del estado de Ethereum, o verificar la ejecución de una transacción. Aunque la seguridad ocmpleta es sólo posible para un 'full node', el protocolo de nodo ligero permite procesar alrededor de 1KB de datos por cada dos minutos, para recivir datos de la red sobre las partes del estado que les concierne, y estar seguros de que dichos datos son correctos, provistos de forma que la mayoría de los mineros estan siguiendo correctamente el protocolo, y quizás incluso aunque apenas mientras que un sólo 'full node' exista.
+
+En Ethereum, un cliente ligero puede ser entendido como un cliente que descarga por defecto los 'headers' de los bloques, y verifica únicamente una pequeña porción de lo que precisa ser verificado, usando una tabla de hash distribuida en lugar de una base de datos con el árbol de nodos almacenado en su disco duro local.  Para un "cliente parcialmente ligero", que procesa todo, pero se limita a la hora de utilizar el espacio de disco duro y almacena prácticamente nada, sustituyendo una lectura de la base de datos con un 'get request' de una tabla de hashes distribuida (DHT) que resulta suficiente para cumplir los requisitos. De hecho, todos los 'full clients', excepto los nodos de archivo (que serían mantenidos por propósitos relacionados con negocios, exploradores de bloques, etcétera) finalemnte serían configurados como clientes parcialmente ligeros respecto al registro histórico más antiguo de unos cuantos miles de bloques. Formalmente, podemos decir que esto permitiría mantener la complejidad a razón de O(log(n)), aunque un mecanismo particular funcionaría con apenas O(sqrt(n)).
+
+Otra opción para reducir el tiempo de descarga de la blockchain ha sido la implementación de los opcods que permiten (Descargas de Bloques en Paralelo)(https://github.com/ethereum/wiki/wiki/Parallel-Block-Downloads).
 
 ###Documentación
 <ul>
@@ -108,7 +121,7 @@ JS https://github.com/ethereumjs/node-blockchain-server
 
 ###Browsers
 
-Mist https://github.com/tgerring/mist
+Mist https://github.com/ethereum/mist
 
 ###Ghost Protocol Uncle Blocks
 
@@ -197,8 +210,6 @@ ethjsonrpc https://github.com/ConsenSys/ethjsonrpc
 
 ##Wallet
 
-Mist Wallet https://github.com/ethereum/mist
-
 MyEtherWallet Javascript Client-Side Key Pair Generator https://www.myetherwallet.com/  (old etheraddress.org) https://github.com/kvhnuke/etherwallet Bulk Raw Txs (also in https://etherscan.io/pushTx)
 
 JS Cold Wallet Generator https://github.com/ryepdx/ethaddress.org -> Trust here https://www.reddit.com/r/ethereum/comments/3jz85n/ethaddressorg_paper_wallets_for_ethereum/ Bulk Encrypted Vanity Split
@@ -222,7 +233,6 @@ Go Cold Wallet Vanity Vanyeth https://github.com/makevoid/vanieth
 JS Cold Vanity Wallet https://github.com/whitj00/ethereum-vanity
 
 Cold Key Pair Generation Vitalik Python http://vitalik.ca/files/python_cold_wallet_instructions.txt
-
 
 ##JS
 Meteor Embark https://github.com/hitchcott/meteor-embark
