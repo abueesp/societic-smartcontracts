@@ -90,7 +90,7 @@ El propósito de un cliente ligero es permitir a los usuarios en entornos de baj
 
 En Ethereum, un cliente ligero puede ser entendido como un cliente que descarga por defecto los 'headers' de los bloques, y verifica únicamente una pequeña porción de lo que precisa ser verificado, usando una tabla de hash distribuida en lugar de una base de datos con el árbol de nodos almacenado en su disco duro local.  Para un "cliente parcialmente ligero", que procesa todo, pero se limita a la hora de utilizar el espacio de disco duro y almacena prácticamente nada, sustituyendo una lectura de la base de datos con un 'get request' de una tabla de hashes distribuida (DHT) que resulta suficiente para cumplir los requisitos. De hecho, de acuerdo con la técnica de (Poda de Árboles de Estado)(https://blog.ethereum.org/2015/06/26/state-tree-pruning/) todos los 'full clients', excepto los nodos de archivo (que serían mantenidos por propósitos relacionados con negocios, exploradores de bloques, etcétera) finalmente serían configurados como clientes parcialmente ligeros respecto al registro histórico más antiguo de unos cuantos miles de bloques. Formalmente, podemos decir que esto permitiría mantener la complejidad a razón de O(log(n)), aunque un mecanismo particular funcionaría con apenas O(sqrt(n)).
 
-Otra opción para reducir el tiempo de descarga de la blockchain ha sido la implementación de los opcods que permiten (Descargas de Bloques en Paralelo)(https://github.com/ethereum/wiki/wiki/Parallel-Block-Downloads).
+Otra opción para reducir el tiempo de descarga de la blockchain ha sido la implementación de los opcodes que permiten (Descargas de Bloques en Paralelo)(https://github.com/ethereum/wiki/wiki/Parallel-Block-Downloads).
 
 ###Documentación
 <ul>
@@ -323,7 +323,7 @@ https://github.com/ethereum/wiki/blob/master/Dagger-Hashimoto.md http://vitalik.
 
 ##Environment
 
-    Ethereum
+    Ethereum EIP https://github.com/ethereum/EIPs/issues
     Bitshares / Graphene
     Engima
     MaidSafe
@@ -346,6 +346,6 @@ Storage
 
 SmartContracts
     
-    Codex Pax https://medium.com/@PaxDirectory/codex-a-legal-scripting-language-e3723cc76662#.eqovmsvh5
+    Codex Pax https://medium.com/@PaxDirectory/codex-a-legal-scripting-language-e3723cc76662
     CommonAccord www.commonaccord.org http://hardjono.mit.edu/sites/default/files/documents/CommonAccord_Provenance_11182015.pdf
 
