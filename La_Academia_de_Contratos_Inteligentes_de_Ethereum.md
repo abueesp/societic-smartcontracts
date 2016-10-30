@@ -293,7 +293,7 @@ Offchain processing https://github.com/ConsenSys/Flare
 Encrypted queries, dapp stackexchange, identity registry and so forth from Oraclize https://github.com/oraclize
 API contract https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI.sol Eth examples https://github.com/oraclize/ethereum-examples
 
-How to deploy a DAO https://github.com/slockit/DAO/wiki/How-To-Deploy-A-DAO-%5Bnon-devs%5D https://docs.google.com/document/d/10kTyCmGPhvZy94F7VWyS-dQ4lsBacR2dUgGTtV98C40/mobilebasic?pli=1
+How to deploy a DAO https://github.com/slockit/DAO/wiki/How-To-Deploy-A-DAO-%5Bnon-devs%5D (3 docs about The DAO experience https://blog.slock.it/the-dao-creation-is-now-live-2270fd23affc https://docs.google.com/document/d/10kTyCmGPhvZy94F7VWyS-dQ4lsBacR2dUgGTtV98C40/mobilebasic https://medium.com/@abueesp/explain-me-the-dao-hack-like-im-5-to-whom-may-concern-in-the-ethereum-community-2acf1ee35f7f )
 
 ##ERC
 
