@@ -102,7 +102,7 @@ Otra opción para reducir el tiempo de descarga de la blockchain ha sido la impl
 <li><a href="https://www.ethereum.org/pdfs/EtherProductPurchaseAgreement.pdf">Ether Product Purchase Agreement</a></li>
 
 ###Antecedentes
-Bitcoin, Hashcash, Criptografía asimétrica, zSNARKS, Protocolos de Estado, Tokenización
+Bitcoin, Hashcash, (Criptografía asimétrica)(https://www.comparitech.com/blog/information-security/cryptography-guide/), (zSNARKS)(https://jeremykun.com/2016/07/05/zero-knowledge-proofs-a-primer/), Protocolos de Estado, Tokenización
 
 ##Clients
 Go https://github.com/ethereum/go-ethereum/wiki/geth
