@@ -2,7 +2,7 @@
 
 ### ¿Qué es Ethereum?
 
-Podemos definir Ethereum de una forma aséptica y algo simplista como una *red de nodos con una base de datos [distribuida](http://www.nils-diewald.de/images/dsn/thumb/dsn-cent-decent-distr-federated.png) con estado bajo licencia libre para la programación de contratos automatizados*.
+Podemos definir Ethereum de una forma aséptica y algo simplista como un *software bajo licencia libre que permite una interconexión P2P [distribuida](http://www.nils-diewald.de/images/dsn/thumb/dsn-cent-decent-distr-federated.png) de tal forma que se de lugar a una red de nodos que comparten una base de datos y un protocolo de estado para la programación de contratos automatizados*.
 
 Ethereum fue ideadada por Vitalik Buterin a finales de 2013 en [Ethereum: A Next-Generation Cryptocurrency and Decentralized Application Platform](https://bitcoinmagazine.com/articles/ethereum-next-generation-cryptocurrency-decentralized-application-platform-1390528211), formalmente descrita por Gavin Wood a principios de 2014 en su [Yellow Paper](http://gavwood.com/Paper.pdf), y finalmente lanzada el 30 de julio de 2015.
 
