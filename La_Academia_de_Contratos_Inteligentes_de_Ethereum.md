@@ -530,7 +530,7 @@ Halt Execution, Mark for deletion.
 
 
 #Difficulty adjustment algorithm
-PRIOR EIP2 block_diff = parent_diff + parent_diff // 2048 *    (1 if block_timestamp - parent_timestamp < 13 else -1) + int(2**((block.number // 100000) - 2)) (where the + int(2**((block.number // 100000) - 2))
-POST EIP 2 block_diff = parent_diff + parent_diff // 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99) + int(2**((block.number // 100000) - 2)) 
+PRIOR EIP2 block_diff = parent_diff + parent_diff // 2048 *    (1 if block_timestamp - parent_timestamp < 13 else -1) + int(2 ** ((block.number // 100000) - 2)) (where the + int(2 ** ((block.number // 100000) - 2))
+POST EIP 2 block_diff = parent_diff + parent_diff // 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99) + int(2 ** ((block.number // 100000) - 2)) 
 
 Donde // es el operador dividor entero, por ejemplo 6 // 2 = 3, 7 // 2 = 3, 8 // 2 = 4. La `minDifficulty` todavia define la la dificultad minima permitida, sin que ningun otro adjuste sea necesario. El anterior algorimo de tiempo de bloque, pretendia una media de 13 segundos. La nueva formula propuesta esta basada tambien en obtener la media, pero de tal forma que queda probado en la formula que resulta matematicamente imposible que el tiempo medio sea mayor de 24 segundos. El uso de  block_timestamp - parent_timestamp) // 10 como la principal variable de entrada, en lugar del tiempo de diferencia, directamente sirve para mantener la naturaleza granular del algoritmo, preveyendo cualquier incentivo excesivo para establecer la diferencia del timestamp a exactamente 1 a fin de crear un bloque que tiene ligeramente mayor dificultad. El -99 simplemente sirve para asegurar que la dicultad no llega extradamente lejossi dos bloques terminan estando muy apartados en el tiempo debido a un bug de seguridad en el cliente o cualquier otra cuestion cisne negra.
