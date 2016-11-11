@@ -468,7 +468,7 @@ SmartContracts
 
 0x58 PC Get the value of the program counter prior to the increment
 
-0x59 MSIZE Obtiene el tamano de la memoria activa en bytes. Vease CALL, CALLCODE and DELEGATECALL a final, asi como CALLER. Asi, es incluso posible determinar el tamano de los datos devueltos: Si el CALLER usa output_start = MSIZE y output_size = 2**256-1, esa sera el area de la memoria que es escrita finalmente para esto  (output_start, MSIZE) (como vemos, MSIZE es evaluada despues de CALLER). Esto hace posible devolver datos de tamano dinamico, tales como tablas, de manera muy flexible. En un estado anterior, fue propuesto tambien anadir el tamano del tamano devuelto a la stack, pero el mecanismo MSIZE descrito deberia ser suficiente y es mucho mejor compatible hacia atras. El opcode MSIZE opcode tipicamente es usado para localizar la memoria previamente no utilizada. El cambio en la semantica afecta al contrato de dos formas:
+0x59 MSIZE Obtiene el tamano de la memoria activa en bytes. Vease CALL, CALLCODE and DELEGATECALL al final, asi como CALLER. Asi, es incluso posible determinar el tamano de los datos devueltos: Si el CALLER usa output_start = MSIZE y output_size = 2**256-1, esa sera el area de la memoria que es escrita finalmente para esto  (output_start, MSIZE) (como vemos, MSIZE es evaluada despues de CALLER). Esto hace posible devolver datos de tamano dinamico, tales como tablas, de manera muy flexible. En un estado anterior, fue propuesto tambien anadir el tamano del tamano devuelto a la stack, pero el mecanismo MSIZE descrito deberia ser suficiente y es mucho mejor compatible hacia atras. El opcode MSIZE opcode tipicamente es usado para localizar la memoria previamente no utilizada. El cambio en la semantica afecta al contrato de dos formas:
 
     Sobreescribe la memoria asignada. Usando CALLER, un contrato deberia pretender asignar cierto fragmento de la memoria, incluso si no esta escrito por el contrato que fue llamado. Usos subsecuentes de MSIZE para utilizar la memoria deberia cubrir con este fragmento que ahora es mas pequeno que antes del cambio, aunque es improbable que tal contrato exista. 
 
@@ -527,7 +527,19 @@ SmartContracts
 
 0xf3 RETURN Halt execution returning output data.
 
-0xf4 DELEGATECALL Message-call into this account with an alternative account’s code, but persisting the current values for sender and value.
+0xf4 DELEGATECALL Llamada-mensaje en esta cuenta con un codigo de cuenta alternativo, pero persistiendo los mismos valores de emisor de la transaccion y valor de la misma. Es similar a la idea de CALLCODE, excepto que se propagan el emisor de la transaccion ('CALLER') y el valor ('VALUE) de la llamada padre a la hija, por ejemplo, porque la llamada creada tenga el mismo transmitente y valor que la llamada original. Vea los siguientes [dos casos](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-7.md). El limite de profundidad de llamada de 1024 es preservado. Asimismo, CALLER y VALUE se comportan exactamente igual en el entorno del llamado como en el entorno del llamador. De esta forma, DELEGATECALL 0xf4 toma 6 operandos: 
+
+gas: la suma de gas que el codigo deberia usar a fin de ejecutarse (la suma que el llamado recibe). Como CALCODE, la creacion de cuenta nunca sucede, de tal forma que el coste en gas es siempre schedule.callGas + gas. El gas no utilizado se devuelve, como de costumbre.
+
+to: la direccion destino cuyo codigo sera ejecutado;
+
+in_offset: el offset en la memoria del input;
+
+in_size: el tamano del input en bytes;
+
+out_offset: el offset en la memoria del output;
+
+out_size: el tamano del scratch pad del output;
 
 0xff SELFDESTRUCT or SUICIDE. Halt execution and register account for later deletion. SELFDESTRUCT was added as an alias of SUICIDE opcode (rather than replacing it) on the [EIP 6](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-6.md).
 
