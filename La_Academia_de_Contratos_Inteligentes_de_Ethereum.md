@@ -412,7 +412,7 @@ SmartContracts
 
 0x32 ORIGIN Get execution origination address.
 
-0x33 CALLER Get caller address.This is the address of the account that is directly responsible for this execution.
+0x33 CALLER Get caller address.This is the address of the account that is directly responsible for this execution. The caller (1) does not need to know the size of the output in advance (ver MSIZE) and (2) can determine the size of the output after the call. A caller can choose to provide a gigantic area of memory at the end of their memory area. The callee can "write" to it by returning and the caller is only charged for the memory area that is actually written. 
 
 0x34 CALLVALUE Get deposited value by the instruction/transaction responsible for this execution.
 
@@ -468,8 +468,12 @@ SmartContracts
 
 0x58 PC Get the value of the program counter prior to the increment
 
-0x59 MSIZE Get the size of active memory in bytes. See CALL, CALLCODE and DELEGATECALL at the end.
+0x59 MSIZE Obtiene el tamano de la memoria activa en bytes. Vease CALL, CALLCODE and DELEGATECALL a final, asi como CALLER. Asi, es incluso posible determinar el tamano de los datos devueltos: Si el CALLER usa output_start = MSIZE y output_size = 2**256-1, esa sera el area de la memoria que es escrita finalmente para esto  (output_start, MSIZE) (como vemos, MSIZE es evaluada despues de CALLER). Esto hace posible devolver datos de tamano dinamico, tales como tablas, de manera muy flexible. En un estado anterior, fue propuesto tambien anadir el tamano del tamano devuelto a la stack, pero el mecanismo MSIZE descrito deberia ser suficiente y es mucho mejor compatible hacia atras. El opcode MSIZE opcode tipicamente es usado para localizar la memoria previamente no utilizada. El cambio en la semantica afecta al contrato de dos formas:
 
+    Sobreescribe la memoria asignada. Usando CALLER, un contrato deberia pretender asignar cierto fragmento de la memoria, incluso si no esta escrito por el contrato que fue llamado. Usos subsecuentes de MSIZE para utilizar la memoria deberia cubrir con este fragmento que ahora es mas pequeno que antes del cambio, aunque es improbable que tal contrato exista. 
+
+    EL cambio de las direcciones de memoria. En general, si la memoria es asignada usando el opcode MSIZE, las direciones de objetos en memoria seran diferentes despues del cambio. El contrato deberia ser escrito completamente de esa manera, tal que los objetos en memoria sean reasignables, y asi, por ejemplo, su posicion absoluta en memoria y su posicion relativa a otros objetos no importe. Esto, claramente, no es el caso de las tablas, sino que estas son asignadas en una sola asignacion y no con el intermediario CALL.
+    
 0x5a GAS Get the amount of available gas, including the corresponding reduction
 
 0x5b JUMPDEST Mark a valid destination for jumps.
