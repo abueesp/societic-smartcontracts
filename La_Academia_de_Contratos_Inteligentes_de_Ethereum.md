@@ -422,6 +422,7 @@ SmartContracts
 
 0x37 CALLDATACOPY Copy input data in current environment to memory. This pertains to the input data passed with the message call instruction or transaction.
 
+??? CALLDEPTH It should return the remaining call stack depth. A value of 0 means that the call stack is exhausted, and no further calls can be made. This avoid the (call attack)(https://github.com/ethereum/EIPs/blob/master/EIPS/eip-3.mediawiki) There is a limit specifying how deep contracts can call other contracts; the call stack. The limit is currently `256`. If a contract invokes another contract (either via `CALL` or `CALLCODE`), the operation will fail if the call stack depth limit has been reached. This behaviour makes it possible to subject a contract to a "call stack attack" [1]. In such an attack, an attacker first creates a suitable depth of the stack, e.g. by recursive calls. After this step, the attacker invokes the targeted contract. If the targeted calls another contract, that call will fail. If the return value is not properly checked to see if the call was successfull, the consequences could be damaging. (Checker)(https://github.com/pipermerriam/ethereum-stack-depth-lib) 
 
 0x38 CODESIZE Get size of code running in current environment.
 
