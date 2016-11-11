@@ -470,9 +470,9 @@ SmartContracts
 
 0x59 MSIZE Obtiene el tamano de la memoria activa en bytes. Vease CALL, CALLCODE and DELEGATECALL al final, asi como CALLER. Asi, es incluso posible determinar el tamano de los datos devueltos: Si el CALLER usa output_start = MSIZE y output_size = 2**256-1, esa sera el area de la memoria que es escrita finalmente para esto  (output_start, MSIZE) (como vemos, MSIZE es evaluada despues de CALLER). Esto hace posible devolver datos de tamano dinamico, tales como tablas, de manera muy flexible. En un estado anterior, fue propuesto tambien anadir el tamano del tamano devuelto a la stack, pero el mecanismo MSIZE descrito deberia ser suficiente y es mucho mejor compatible hacia atras. El opcode MSIZE opcode tipicamente es usado para localizar la memoria previamente no utilizada. El cambio en la semantica afecta al contrato de dos formas:
 
-    Sobreescribe la memoria asignada. Usando CALLER, un contrato deberia pretender asignar cierto fragmento de la memoria, incluso si no esta escrito por el contrato que fue llamado. Usos subsecuentes de MSIZE para utilizar la memoria deberia cubrir con este fragmento que ahora es mas pequeno que antes del cambio, aunque es improbable que tal contrato exista. 
+Sobreescribe la memoria asignada. Usando CALLER, un contrato deberia pretender asignar cierto fragmento de la memoria, incluso si no esta escrito por el contrato que fue llamado. Usos subsecuentes de MSIZE para utilizar la memoria deberia cubrir con este fragmento que ahora es mas pequeno que antes del cambio, aunque es improbable que tal contrato exista. 
 
-    EL cambio de las direcciones de memoria. En general, si la memoria es asignada usando el opcode MSIZE, las direciones de objetos en memoria seran diferentes despues del cambio. El contrato deberia ser escrito completamente de esa manera, tal que los objetos en memoria sean reasignables, y asi, por ejemplo, su posicion absoluta en memoria y su posicion relativa a otros objetos no importe. Esto, claramente, no es el caso de las tablas, sino que estas son asignadas en una sola asignacion y no con el intermediario CALL.
+EL cambio de las direcciones de memoria. En general, si la memoria es asignada usando el opcode MSIZE, las direciones de objetos en memoria seran diferentes despues del cambio. El contrato deberia ser escrito completamente de esa manera, tal que los objetos en memoria sean reasignables, y asi, por ejemplo, su posicion absoluta en memoria y su posicion relativa a otros objetos no importe. Esto, claramente, no es el caso de las tablas, sino que estas son asignadas en una sola asignacion y no con el intermediario CALL.
     
 0x5a GAS Get the amount of available gas, including the corresponding reduction
 
@@ -503,6 +503,7 @@ SmartContracts
 0x90 SWAP1 Exchange 1st and 2nd stack items.
 
 0x91 SWAP2 Exchange 1st and 3rd stack items.
+
 … …
 
 0x9f SWAP16 Exchange 1st and 17th stack items.
