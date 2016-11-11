@@ -468,7 +468,7 @@ SmartContracts
 
 0x58 PC Get the value of the program counter prior to the increment
 
-0x59 MSIZE Get the size of active memory in bytes.
+0x59 MSIZE Get the size of active memory in bytes. See CALL, CALLCODE and DELEGATECALL at the end.
 
 0x5a GAS Get the amount of available gas, including the corresponding reduction
 
@@ -525,9 +525,10 @@ SmartContracts
 
 0xf4 DELEGATECALL Message-call into this account with an alternative account’s code, but persisting the current values for sender and value.
 
-Halt Execution, Mark for deletion.
-
 0xff SUICIDE Halt execution and register account for later deletion.
+
+The gas and memory semantics for CALL and CALLCODE and DELEGATE_CALL (were changed)(https://github.com/ethereum/EIPs/blob/master/EIPS/eip-5.md) in the following way (CREATE does not write to memory and is thus unaffected). Suppose the arguments to CALL / CALLCODE are gas, address, value, input_start, input_size, output_start, output_size), then, at the beginning of the opcode, gas for growing memory is only charged for input_start + input_size, but not for output_start + output_size. If the called contract returns data of size n, the memory of the calling contract is grown to output_start + min(output_size, n) (and the calling contract is charged gas for that) and the output is written to the area [output_start, output_start + min(n, output_size)). The calling contract can run out of gas both at the beginning of the opcode and at the end of the opcode. After the call, the MSIZE opcode should return the size the memory was actually grown to.
+
 
 
 #Difficulty adjustment algorithm
