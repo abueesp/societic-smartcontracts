@@ -348,7 +348,9 @@ SmartContracts
     CommonAccord www.commonaccord.org http://hardjono.mit.edu/sites/default/files/documents/CommonAccord_Provenance_11182015.pdf
 
 
-#Opcodes
+#Opcodes 
+
+Lista actualizada, la v.1.0 original puede consultarse [aqui](https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs/edit#gid=0).
 
 ##0s: Stop and Arithmetic Operations
 
