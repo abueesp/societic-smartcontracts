@@ -1,6 +1,55 @@
 
-
 ¡Bienvenid@ a la **Academia de Smart Contracts de Ethereum** en español! Este espacio tiene el propósito de presentar una guía introductoria, útil y sencilla, para todos aquellos que deseen empezar a comprender esta tecnología. 
+
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+**Índice de contenidos**  
+
+  - [¿Qué es Ethereum?](#qué-es-ethereum)
+  - [Smart contracts](#smart-contracts)
+  - [Ether y gas](#ether-y-gas)
+  - [Cuentas](#cuentas)
+  - [Almacenamiento, memoria y pila](#almacenamiento-memoria-y-pila)
+  - [Set de instrucciones](#set-de-instrucciones)
+  - [Llamadas](#llamadas)
+    - [Llamadas de mensaje](#llamadas-de-mensaje)
+    - [Llamadas delegadas / Librerías y código de llamadas](#llamadas-delegadas--librer%C3%ADas-y-c%C3%B3digo-de-llamadas)
+    - [Llamadas de creación de contratos](#llamadas-de-creaci%C3%B3n-de-contratos)
+  - [Comunicación entre nodos: Descubrimiento, Transporte Encriptado, Enmarcado y Control del Flujo](#comunicaci%C3%B3n-entre-nodos-descubrimiento-transporte-encriptado-enmarcado-y-control-del-flujo)
+  - [Árboles de Patricia Merkle y Clientes ligeros](#Árboles-de-patricia-merkle-y-clientes-ligeros)
+  - [Documentación](#documentaci%C3%B3n)
+  - [Antecedentes](#antecedentes)
+- [Clients](#clients)
+  - [Browsers](#browsers)
+  - [POS](#pos)
+  - [Markets](#markets)
+  - [Pools](#pools)
+  - [Programando](#programando)
+- [Lenguajes](#lenguajes)
+  - [Tesnets](#tesnets)
+- [Framework](#framework)
+- [Scripters and terminals](#scripters-and-terminals)
+- [APIs](#apis)
+- [Wallet](#wallet)
+- [JS](#js)
+- [ERC](#erc)
+- [Games](#games)
+- [Environment](#environment)
+- [0s: Stop and Arithmetic Operations](#0s-stop-and-arithmetic-operations)
+- [10s: Comparison & Bitwise Logic Operations](#10s-comparison--bitwise-logic-operations)
+- [20s: SHA3](#20s-sha3)
+- [30s: Environmental Information](#30s-environmental-information)
+- [40s: Block Information](#40s-block-information)
+- [50s Stack, Memory, Storage and Flow Operations](#50s-stack-memory-storage-and-flow-operations)
+- [60s & 70s: Push Operations](#60s--70s-push-operations)
+- [80s: Duplication Operations](#80s-duplication-operations)
+- [90s: Exchange Operations](#90s-exchange-operations)
+- [a0s: Logging Operations](#a0s-logging-operations)
+- [f0s: System operations](#f0s-system-operations)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ### ¿Qué es Ethereum?
 
@@ -25,7 +74,7 @@ Cada operación es cargada con una cierta suma de gas, cuyo propósito es limita
 
 El precio del gas o `gas price` es un valor determinado por el creador de la transacción que es quien paga el mismo por ejecutar dicha llamada a un contrato o realizar una transacción. Si algo de gas sobra tras la ejecución, le es devuelto. Si el gas se termina antes de alcanzarse el requerido, se desencadena una excepción `out of gas`, la cual revierte todas las modificaciones hechas al estado por el actual llamada (`call frame`). 
       
-###Cuentas
+### Cuentas
 Hay **dos tipos de cuentas** en Ethereum que comparten el mismo espacio de direcciones: **Cuentas de Usuario** que son controladas por _pares de llaves pública y privada_ custodiadas directa o indirectamente por uno o varios sujetos, y **Cuentas de Contratos** que son controladas por el propio _código almacenado_ junto con la cuenta. A octubre de 2016 las cuentas de contratos representan un 10% de las cuentas totales.
 
 Las **Cuentas de Usuario** están determinadas por las llaves públicas y éstas por las llaves privadas. Primero generas la **Llave Privada** de 64hex: Un número entero positivo aleatoriamente seleccionado (representado por una tabla de bytes con una longitud de 32 en formato big-endian) en el rango [1, secp256k1n − 1]. Entonces creas la **Llave Pública** de 64 bytes desde la llave privada usando el _Algoritmo de Curva Elíptica de Firma Digital (ECDSA)_. La llave privada es creada aleatoriamente, pero la llave pública y el hash que se utiliza como dirección no es aleatorio. Las **Direcciones** de Ethereum son hashes de la llave pública. Para generar uno tienes que generar la llave privada primero. Entonces creas la dirección usando la llave pública de 64 bytes. Calcula el hash _Keccak-256_ de la llave pública. Deberías ahora tener una cadena de 32 bytes (nota: SHA3-256 se terminó convirtiendo en standard tras ser apoyada por el _NIST_ pero Ethereum usa Keccack). Toma los últimos 20 bytes de esta llave pública  (Keccak-256). O, en otras palabras, elimina los primeros 12 bytes. Estos 20 bytes son la dirección, 40 carácteres. Cuando se le añade el prefijo 0x pasa a tener los 42 carácteres de largo.
@@ -42,7 +91,7 @@ Convierte llaves públicas en direcciones [modificar main.c y genKATShortMsg.cpp
 
 3. Serenity: La transación al nuevo protocolo y actualizaciones de escalabilidad para ser implantable a nivel industrial.
 
-###Almacenamiento, memoria y pila
+### Almacenamiento, memoria y pila
 
 Cada cuenta tiene una primera área de memoria persistente la cual es llamada **Almacenamiento** (`storage`). El Almacenamiento es un valor-llave almacenado que mapea Palabras (`words`) de 256 bits/32bytes. No es posible enumerar el Almacenamiento desde dentro del contrato y es comparativamente costoso de leer y, incluso más, modificar lo almacenado. Un contrato no puede ni leer ni escribir ningún almacenamiento aparte del suyo.
 
@@ -50,13 +99,13 @@ La segunda área de memoria es llamada **Memoria** (`memory`), de la cual un con
 
 La EVM no es una máquina de registro de entradas de bases de datos, sino una [Pila de llamadas](https://es.wikipedia.org/wiki/Pila_de_llamadas) [LIFO](https://es.wikipedia.org/wiki/LIFO) (`stack` o `call stack`), de tal forma que todas las operaciones computacionales se llevan a cabo en su área. Ésta tiene un tamaño máximo de 1024 elementos conteniendo Palabras de 256 bits. La estructura de la **Pila**, de arriba a abajo, es la siguiente: Es posible copiar uno de los primeros 16 elementos a la parte superior de la pila, es decir, intercambiar el elemento superior con cualquiera de los 16 elementos por debajo del mismo. Todas las operaciones toman dos elementos, uno a uno o los dos a la vez dependiendo de la operación, y ponen los resultados en la parte superior de la pila. Es posible mover elementos de la pila para almacenarnos en la memoria, pero no es posible acceder a elementos arbitrarios que se encuentren más abajo de la pila sin primero remover los que se encuentran primero. 
 
-###Set de instrucciones
+### Set de instrucciones
 
 El Set de Instrucciones de la EVM es guardado en su mínima expresión para evitar incorrectas implementaciones las cuales podrían causar problemas. Todas las instrucciones operan en el más básico tipo de dato, Palabras de 256 bits. La aritmética habitual presenta operaciones compartivas con lógica binaria. Así, saltos condicionales o incondicionales son posibles. Además, los contratos pueden acceder propiedades relevates del bloque actual, como son su número y timestamp.
 
-###Llamadas
+### Llamadas
 
-####Llamadas de mensaje
+#### Llamadas de mensaje
 Los contratos pueden llamar otras Cuentas de Contratos o enviar ethers a Cuentas de Usuario. Los Contratos pueden llamar otros contratos o enviar ethers a Cuentas de usuario mediante **Llamadas de mensaje** (`mensaje calls`). Las Llamadas de mensaje son similares a las transaciciones, en las que **tienen una dirección fuente, una dirección objetivo, un payload de datos, ethers, gas y `return data`**. De hecho, cada transacción consiste en una Llamada de mensaje de nivel superior la cual a su vez puede crear otras llamadas de mensaje.
 
 Un contrato que realize una llamada (`caller`) puede decidir cuánto de su gas remanente debería ser enviado con la Llamada de mensaje interna y cuánto querría retener. Si una `out-of-gas exception` o cualquier otra excepción ocurre en la llamada interna, esto será señalado por un valor erróneo puesto en la pila. En Solidity, la llamada del contrato causa una excepción manual por defecto en tales situaciones, de tal forma que las excepciones son anuladas haciendo rebosar la Pila de llamadas. Es decir, en este caso, sólo el gas enviado junto con la llamada es utilizado y la operación realizada se considera nula revirtiéndose sus efectos.
@@ -72,16 +121,16 @@ Ahí existe una especial variante de la llamada de mensaje, denominada **Llamada
 Es posible almacenar datos en una estructura de datos especialmente indexada que mapee todos ellos hasta bien entrado el nivel del bloque. Esta propiedad de ir recopilando **Registros de llamadas** (`called logs`) es usada por Solidity a fin de implementar un histórico de eventos. Los contratos no pueden acceder llamadas a los logs después de que hayan sido creados, pero pueden eficientemente acceder desde fuera de la blockchain. Mientras que los datos de registro de llamadas esté almacenado en filtros bloom es posible buscar estos datos de una forma eficiente y criptográficamente segura, de tal forma que los pares de la red que no han descargado toda la blockchain ([`light clients`](https://doublethink.co/ethereum-light-client/)) pueden aún así encontrar dichos registros. Los [filtros de Bloom](https://en.wikipedia.org/wiki/Bloom_filter) sirven para preguntar si un elemento está en un conjunto, y la respuesta puede ser "no, el elemento no está en el conjunto", de forma rotunda, siempre fiable, o bien "puede ser que el elemento esté en el conjunto", con un grado de certidumbre aproximado. De esta manera, Ethereum usa filtros bloom para verificar que se ha realizado una operación sin tener que consultar la información en toda la red.
 
 
-####Llamadas de creación de contratos
+#### Llamadas de creación de contratos
 Los contratos pueden incluso crear otros contratos usando un operador (`opcode`) especial, y no únicamente llamar a direcciones. La única diferencia entre estas **Llamadas de creación de contratos** (`create calls`) y las Llamadas de mensaje (`mensage call`) corrientes es que el `payload data` es ejecutado y el resultado almacenado como código y el contrato que realiza la llamada de creación recibe la dirección del nuevo contrato en la Pila de llamadas.
 .
 ####Llamadas de autodestrucción 
 La única posibilidad en la que un código puede ser retirado de la blockchain es cuando un contrato llama (`selfdestruct call`) a la dirección que realiza la operación de autodestrucción (`SELFDESTRUCT`). Los ethers sobrantes almacenados en la dirección son enviados a una dirección objetivo determinada y entonces el cógigo y el Almacenamiento son retirados. Fíjate que incluso si el código del contrato no contiene el operador SELFDESTRUCT, todavía puede llevar a cabo dicha operación usando `delegatecall` o `callcode`.
 
-###Comunicación entre nodos: Descubrimiento, Transporte Encriptado, Enmarcado y Control del Flujo
+### Comunicación entre nodos: Descubrimiento, Transporte Encriptado, Enmarcado y Control del Flujo
 Las comunicaciones peer-to-peer entre los nodos usan el [Protocolo Wire](https://github.com/ethereum/wiki/wiki/%C3%90%CE%9EVp2p-Wire-Protocol) de [Ethereum](https://github.com/ethereum/wiki/wiki/Ethereum-Wire-Protocol), un set de operadores y mensajes y su traducción correspondiente en hexadecimal, constituyendo 'per se' un sistema de mensajería privada de bajo nivel (*Whisper*). El Protocolo Wire fue basado en el [Protocolo RLP https://github.com/ethereum/wiki/wiki/RLP], siguiendo la [Especificación de Comunicación y Descubrimiento de Nodos RLPx https://github.com/ethereum/devp2p/blob/master/rlpx.md]. Otra opción de modelo para este propósito podría ser *Swarm*.
 
-###Árboles de Patricia Merkle y Clientes ligeros
+### Árboles de Patricia Merkle y Clientes ligeros
 En Ethereum los datos son almacenados en una estructura de datos denominado [Árbol de Patricia Merkle](https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree), una estructura de árbol donde [cada nodo en el árbol es el hash del siguiente](https://easythereentropy.wordpress.com/2014/06/04/understanding-the-ethereum-trie/). Cada set de parejas de llaves o valores mapea a un único hash raíz, y sólo un pequeño subset de nodos es necesitado para probar que una combinación de llaves/valores corresponde a un hash raíz particular del árbol. El tamaño de la complejidad de una prueba de Merkle escala linearmente con la altura del árbol; porque cada nodo del árbol tiene un número particular de nodos hijos (en nuestro caso, hasta 17), esto significa que el tamaño de la complejidad de una prueba Merkle es logarítima (es decir, O~log(n)) respecto a la cantidad de datos almacenados. Esto significa que, incluso si el árbol de estados completo tiene unos pocos gigabytes de tamaño, si un nodo recibe el estado raíz desde una fuente de confianza, dicho nodo tiene la habilidad de saber con total certeza la validez de cualquier información con árbol apenas descargando unos pocos kilobytes de datos como prueba (es decir, el hash es capaz de representar exactamente al bloque).
 
 Una prueba SPV (Prueba Simple de Verificación) de un nodo en un árbol de Patricia consiste simplemente en un subset completo de tres nodos que fueron procesados a fin de acceder (o, más específicamente, los nodos árboles que necesitaban ser buscados en una base de datos que tuviera la capacidad de hacer búsquedas inversas de hashes). En una simple implementación de un ábol de Patricia, tomadno el valor asociado con una llave particular, se requiere desceder el ábrol hash, constamente buscando nodos en la base de datos por sus hashes, hasta que finalmente se alcanza el nodo final de la última rama; un simple algoritmo que produjera una prueba SPV lo que haría sería usar este sencillo algoritmo y grabar todas las búsquedas que fuesen hechas en la base de datos. La verificación SPV consistiría entonces en correr este sencillo algoritmo de búsqueda pero apuntando éste a la base de datos provista únicamente por los nodos en la prueba SPV; si hay un error y el nodo se encuentra, entonces la prueba es inválida.
@@ -92,7 +141,7 @@ En Ethereum, un cliente ligero puede ser entendido como un cliente que descarga 
 
 Otra opción para reducir el tiempo de descarga de la blockchain ha sido la implementación de los opcodes que permiten [Descargas de Bloques en Paralelo](https://github.com/ethereum/wiki/wiki/Parallel-Block-Downloads).
 
-###Documentación
+### Documentación
 <ul>
 <li><a href="https://www.ethereum.org/pdfs/IntendedUseOfRevenue.pdf">Intended use of revenue</a></li>
 <li><a href="https://www.ethereum.org/pdfs/%C4%90%CE%9EVPLAN.pdf">ĐΞV plan</a></li>
@@ -102,10 +151,10 @@ Otra opción para reducir el tiempo de descarga de la blockchain ha sido la impl
 <li><a href="https://www.ethereum.org/pdfs/TermsAndConditionsOfTheEthereumGenesisSale.pdf">Terms and conditions</a></li>
 <li><a href="https://www.ethereum.org/pdfs/EtherProductPurchaseAgreement.pdf">Ether Product Purchase Agreement</a></li>
 
-###Antecedentes
+### Antecedentes
 Bitcoin, Hashcash, (Criptografía asimétrica)(https://www.comparitech.com/blog/information-security/cryptography-guide/), (zSNARKS)(https://jeremykun.com/2016/07/05/zero-knowledge-proofs-a-primer/), Protocolos de Estado, Tokenización
 
-##Clients
+## Clients
 Go https://github.com/ethereum/go-ethereum/wiki/geth
 
 C++ https://github.com/ethereum/cpp-ethereum
@@ -120,7 +169,7 @@ Rust https://github.com/ethcore/parity
 
 JS https://github.com/ethereumjs/node-blockchain-server
 
-###Browsers
+### Browsers
 
 Mist https://github.com/ethereum/mist
 
@@ -136,7 +185,7 @@ https://blog.ethereum.org/2014/11/25/proof-stake-learned-love-weak-subjectivity/
 
 https://blog.ethereum.org/2014/10/03/slasher-ghost-developments-proof-stake/
 
-###Markets
+### Markets
 
 http://coinmarketcap.com/currencies/ethereum/#markets
 
@@ -156,9 +205,9 @@ Requires registration
 2. https://coinotron.com - PPLNS 1 % fees. RBPPS 4% fees. Payouts are up to the miner (Manual from 0.1 ETH).
 3. https://www2.coinmine.pl/eth/index.php - 1% fees. 
 
-### Programming
+### Programando
 
-##Languages
+## Lenguajes
 Solidity (based on js/c++) http://ethereum.github.io/solidity/
 
 Serpent (based on Python) https://github.com/ethereum/wiki/wiki/Serpent
@@ -167,10 +216,10 @@ LLL (based on Lisp)
 
 Mutan (based on Go) https://github.com/ethereum/go-ethereum/wiki/Mutan
 
-###Tesnets
+### Tesnets
 Morden https://github.com/ethereum/wiki/wiki/Morden
 
-##Framework
+## Framework
 Framework Truffle https://github.com/ConsenSys/truffle https://www.youtube.com/watch?v=Evpdt6wFphU
 
 Framework Embark https://github.com/iurimatias/embark-framework https://www.youtube.com/watch?v=DKB_rCVVpWA https://github.com/iurimatias/embark-framework/wiki/Install-on-Linux
@@ -181,7 +230,7 @@ Framework Meteor Dapp Boilerplate https://github.com/SilentCicero/meteor-dapp-bo
 
 Framework Dapple https://github.com/nexusdev/dapple
 
-##Scripters and terminals
+## Scripters and terminals
 Etherscripter Solidity http://chriseth.github.io/browser-solidity/
 
 Etherscripter Block Serpent LLL XML http://etherscripter.com/0-5-1/ 
@@ -196,7 +245,7 @@ Ethereum TestRPC https://github.com/ConsenSys/eth-testrpc
 
 Ethereum Tester on Dedicated Network https://github.com/ethereum/system-testing
 
-##APIs
+## APIs
 Web3 JS Dapp API https://github.com/ethereum/wiki/wiki/JavaScript-API 
 
 Etherscan http://etherscan.io/apis
@@ -209,7 +258,7 @@ Ethereum Alarm Governance https://github.com/pipermerriam/ethereum-alarm-governa
 
 ethjsonrpc https://github.com/ConsenSys/ethjsonrpc
 
-##Wallet
+## Wallet
 
 MyEtherWallet Javascript Client-Side Key Pair Generator https://www.myetherwallet.com/  (old etheraddress.org) https://github.com/kvhnuke/etherwallet Bulk Raw Txs (also in https://etherscan.io/pushTx)
 
@@ -235,7 +284,7 @@ JS Cold Vanity Wallet https://github.com/whitj00/ethereum-vanity
 
 Cold Key Pair Generation Vitalik Python http://vitalik.ca/files/python_cold_wallet_instructions.txt
 
-##JS
+## JS
 Meteor Embark https://github.com/hitchcott/meteor-embark
 
 Meteor Dapp Catalog https://github.com/ethereum/meteor-dapp-catalog
@@ -296,7 +345,7 @@ API contract https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI.so
 
 How to deploy a DAO https://github.com/slockit/DAO/wiki/How-To-Deploy-A-DAO-%5Bnon-devs%5D (4 docs about The DAO experience https://blog.slock.it/the-dao-creation-is-now-live-2270fd23affc https://blog.slock.it/announcing-dao-link-the-bridge-between-blockchain-and-brick-and-mortar-companies-9510ba04d236#.9z29ymo8v https://docs.google.com/document/d/10kTyCmGPhvZy94F7VWyS-dQ4lsBacR2dUgGTtV98C40/mobilebasic https://medium.com/@abueesp/explain-me-the-dao-hack-like-im-5-to-whom-may-concern-in-the-ethereum-community-2acf1ee35f7f )
 
-##ERC
+## ERC
 
 https://github.com/ethereum/EIPs/issues/20
 
@@ -311,7 +360,7 @@ https://github.com/pipermerriam/devcon2-token
 https://etherscan.io/verifiedSignatures 
 
 
-##Games
+## Games
 FirstBlood https://firstblood.io/
 Ether Crawler https://github.com/ConsenSys/ether-crawler
 
@@ -322,7 +371,7 @@ https://github.com/ConsenSys/dao-wars
 ##Algos
 https://github.com/ethereum/wiki/blob/master/Dagger-Hashimoto.md http://vitalik.ca/ethereum/dagger.html
 
-##Environment
+## Environment
 
     Ethereum EIP https://github.com/ethereum/EIPs/issues
     Bitshares / Graphene
@@ -355,7 +404,7 @@ SmartContracts
 
 [Lista actualizada](https://docs.google.com/spreadsheets/d/15wghZr-Z6sRSMdmRmhls9dVXTOpxKy8Y64oy9MvDZEQ/edit#gid=0). La lista v.1.0 original puede consultarse [aqui](https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs/edit#gid=0).
 
-##0s: Stop and Arithmetic Operations
+## 0s: Stop and Arithmetic Operations
 
 0x00 STOP Halts execution.
 
@@ -381,7 +430,7 @@ SmartContracts
 
 0x0b SIGNEXTEND Extend length of two’s ( complement signed integer.
 
-##10s: Comparison & Bitwise Logic Operations
+## 10s: Comparison & Bitwise Logic Operations
 
 0x10 LT Lesser-than comparison
 
@@ -405,11 +454,11 @@ SmartContracts
 
 0x1a BYTE Retrieve single byte from word
 
-##20s: SHA3
+## 20s: SHA3
 
 0x20 SHA3 Compute Keccak-256 hash.
 
-##30s: Environmental Information
+## 30s: Environmental Information
 
 0x30 ADDRESS Get address of currently executing account.
 
@@ -439,7 +488,7 @@ SmartContracts
 
 0x3c EXTCODECOPY Copy an account’s code to memory.
 
-##40s: Block Information
+## 40s: Block Information
 
 0x40 BLOCKHASH Get the hash of one of the 256 most recent complete blocks.
 
@@ -553,7 +602,7 @@ The gas and memory semantics for CALL and CALLCODE and DELEGATE_CALL [are still 
 
 
 
-#Difficulty adjustment algorithm
+#Algoritmo de ajuste de la dificultad
 **PRIOR EIP2** block_diff = parent_diff + parent_diff // 2048 *    (1 if block_timestamp - parent_timestamp < 13 else -1) + int(2 ** ((block.number // 100000) - 2)) (where the + int(2 ** ((block.number // 100000) - 2))
 
 **POST EIP 2** block_diff = parent_diff + parent_diff // 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99) + int(2 ** ((block.number // 100000) - 2)) 
