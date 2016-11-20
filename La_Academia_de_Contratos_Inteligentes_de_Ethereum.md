@@ -2,7 +2,7 @@
 
 ### ¿Qué es Ethereum?
 
-Podemos definir Ethereum de una forma aséptica y algo simplista como un *software bajo licencia libre que permite una interconexión P2P [distribuida](http://www.nils-diewald.de/images/dsn/thumb/dsn-cent-decent-distr-federated.png) de tal forma que se de lugar a una red de nodos que comparten una base de datos y un protocolo de estado para la programación de contratos automatizados*.
+Podemos definir Ethereum de una forma aséptica y algo simplista como un *software bajo licencia libre que permite una interconexión P2P [distribuida](http://www.nils-diewald.de/images/dsn/thumb/dsn-cent-decent-distr-federated.png) de tal forma que una red de nodos que comparten una base de datos y un protocolo de estado, que pueden contener tanto objetos o variables como piezas enteras de codigo (contratos automatizados)*.
 
 Ethereum fue ideadada por Vitalik Buterin a finales de 2013 en [Ethereum: A Next-Generation Cryptocurrency and Decentralized Application Platform](https://bitcoinmagazine.com/articles/ethereum-next-generation-cryptocurrency-decentralized-application-platform-1390528211), formalmente descrita por Gavin Wood a principios de 2014 en su [Yellow Paper](http://gavwood.com/Paper.pdf), y finalmente lanzada el 30 de julio de 2015.
 
@@ -21,7 +21,7 @@ http://ether.fund/tool/gas-price gas price graph
 
 Cada operación es cargada con una cierta suma de gas, cuyo propósito es limitar la cantidad de trabajo que es necesitada para ejecutar la transacción y pagar por su ejecución. Con ello se procura evitar el spam y mantener la estabilidad de la red. Mientras la EVM ejecuta la transacción, el gas es gradualmente consumido de acuerdo con reglas específicas.
 
-El precio del gas o `gas price` es un valor determinado por el creador de la transacción que es quien paga el mismo por ejecutar dicha llamada a un contrato o realizar una transacción. Si algo de gas sobra tras la ejecución, le es devuelto. Si el gas se termina antes de alcanzarse el requerido, se desencadena una excepción `out of gas`, la cual revierte todas las modificaciones hechas al estado por el actual llamada (`call frame`).
+El precio del gas o `gas price` es un valor determinado por el creador de la transacción que es quien paga el mismo por ejecutar dicha llamada a un contrato o realizar una transacción. Si algo de gas sobra tras la ejecución, le es devuelto. Si el gas se termina antes de alcanzarse el requerido, se desencadena una excepción `out of gas`, la cual revierte todas las modificaciones hechas al estado por el actual llamada (`call frame`). 
       
 ###Cuentas
 Hay **dos tipos de cuentas** en Ethereum que comparten el mismo espacio de direcciones: **Cuentas de Usuario** que son controladas por _pares de llaves pública y privada_ custodiadas directa o indirectamente por uno o varios sujetos, y **Cuentas de Contratos** que son controladas por el propio _código almacenado_ junto con la cuenta. A octubre de 2016 las cuentas de contratos representan un 10% de las cuentas totales.
@@ -96,6 +96,7 @@ Otra opción para reducir el tiempo de descarga de la blockchain ha sido la impl
 <li><a href="https://www.ethereum.org/pdfs/%C4%90%CE%9EVPLAN.pdf">ĐΞV plan</a></li>
 <li><a href="https://www.ethereum.org/pdfs/EthereumWhitePaper.pdf">White paper</a></li>
 <li><a href="https://www.ethereum.org/pdfs/EthereumYellowPaper.pdf">Yellow paper</a></li>
+<li><a href="https://github.com/ethereum/wiki/wiki/FAQ">FAQ</a></li>
 <li><a href="https://www.ethereum.org/pdfs/TermsAndConditionsOfTheEthereumGenesisSale.pdf">Terms and conditions</a></li>
 <li><a href="https://www.ethereum.org/pdfs/EtherProductPurchaseAgreement.pdf">Ether Product Purchase Agreement</a></li>
 
@@ -350,7 +351,7 @@ SmartContracts
 
 #Opcodes 
 
-Lista actualizada, la v.1.0 original puede consultarse [aqui](https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs/edit#gid=0).
+[Lista actualizada](https://docs.google.com/spreadsheets/d/15wghZr-Z6sRSMdmRmhls9dVXTOpxKy8Y64oy9MvDZEQ/edit#gid=0). La lista v.1.0 original puede consultarse [aqui](https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs/edit#gid=0).
 
 ##0s: Stop and Arithmetic Operations
 
