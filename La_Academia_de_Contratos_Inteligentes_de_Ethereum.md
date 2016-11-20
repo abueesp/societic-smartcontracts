@@ -1,3 +1,5 @@
+
+
 ¡Bienvenid@ a la **Academia de Smart Contracts de Ethereum** en español! Este espacio tiene el propósito de presentar una guía introductoria, útil y sencilla, para todos aquellos que deseen empezar a comprender esta tecnología. 
 
 ### ¿Qué es Ethereum?
