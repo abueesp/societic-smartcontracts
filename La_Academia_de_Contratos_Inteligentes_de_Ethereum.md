@@ -10,7 +10,7 @@ Según Taylor Gerring el propósito del Proyecto Ethereum es construir una mejor
 
 ### Smart contracts
 
-Smart contracts son piezas de código que se valen de un elemento de estado y de una red distribuida a fin de facilitar protocolos de estado y programas destinados a **facilitar la ejecución automatizada de un contrato de forma distribuida***, y su principal desarrollo conceptual fue llevado a cabo por Nick Szasbo durante la década de 1990. En Ethereum pueden ser implementados en varios lenguajes, y son compilados en bytecode para la Máquina Virtual de Ethereum (EVM) antes de desplegar sus efectos en la cadena de bloques.
+Smart contracts son piezas de código que se valen de un elemento de estado y de una red distribuida a fin de facilitar protocolos de estado y programas destinados a **facilitar la ejecución automatizada de un contrato de forma distribuida**. Su principal desarrollo conceptual fue llevado a cabo por Nick Szasbo durante la década de 1990. En 1996 escribe Smart Contracts: Building Blocks for Digital Markets y en 1997 Formalizing and Securing Relationships on Public Networks. En Ethereum estos contratos pueden ser implementados en varios lenguajes, y son compilados en bytecode para la Máquina Virtual de Ethereum (EVM) antes de desplegar sus efectos en la cadena de bloques.
 
 Cada ***smart contract (contract)*** consta de ***estructuras (struct)***, ***funciones (func)*** y ***estados (state)***, y es ejecutado en [cada nodo](http://ethernodes.org/network/1) de Ethereum simultáneamente, los cuales consensuan su resultado de forma distribuida. El [Ethereum Development Tutorial](https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial) hace notar que el coste de hacer uso de un poder de computación de una EVM tan confiable como ésta es tan alto, que, a efectos prácticos, en términos de carga y optimización se afirma que no debería pensar en programarse algo "que no pudieras ejecutar en un teléfono inteligente del año 1999".
 
@@ -451,7 +451,7 @@ SmartContracts
 
 0x45 GASLIMIT Get the block’s gas limit.
 
-## 50s Stack, Memory, Storage and Flow Operatiions
+## 50s Stack, Memory, Storage and Flow Operations
 
 0x50 POP Remove item from stack.
 
