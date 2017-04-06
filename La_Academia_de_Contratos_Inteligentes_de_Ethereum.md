@@ -306,7 +306,7 @@ Address to IP and Address to URL DNS https://github.com/ConsenSys/addresstoip ht
 
 Build Solidity Contracts as JS https://github.com/ConsenSys/sol-builder
 
-###Other tools
+### Otras herramientas
 Package Solidity and Serpent for Atom https://atom.io/packages/language-ethereum
 
 Solidity Contract Viewer https://github.com/ConsenSys/contract-viewer
@@ -352,7 +352,7 @@ https://github.com/ethereum/EIPs/issues/20
 
 https://etherscan.io/token-search
 
-##Identity
+## Identidad
 
 https://uport.me/#home
 
@@ -361,19 +361,33 @@ https://github.com/pipermerriam/devcon2-token
 https://etherscan.io/verifiedSignatures 
 
 
-## Games
+## Juegos
 FirstBlood https://firstblood.io/
 Ether Crawler https://github.com/ConsenSys/ether-crawler
-
 Etheria https://github.com/fivedogit/etheria
-
 https://github.com/ConsenSys/dao-wars
 
 ##Algos
 https://github.com/ethereum/wiki/blob/master/Dagger-Hashimoto.md http://vitalik.ca/ethereum/dagger.html
 
-## Environment
+### Consenso y metaconsenso
+Consensus http://www.csd.uoc.gr/~hy586/material/lectures/cs586-Section6.pdf
+The Quest for Scalable Blockchain Fabric: Proof-of-Work vs. BFT Replication http://vukolic.com/iNetSec_2015.pdf
+Impossibility of Distributed Consensus with One Faulty Process https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf
+Practical Byzantine Fault Tolerance http://pmg.csail.mit.edu/papers/osdi99.pdf
+Consensus in the Presence of Partial Synchrony https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf 
+Ethereum Sharding https://github.com/ethereum/EIPs/issues/53
+Cosmos: https://github.com/cosmos/cosmos/blob/master/WHITEPAPER.md
+Sidechains: https://blockstream.com/sidechains.pdf
+Interledger: https://interledger.org/rfcs/0001-interledger-architecture/
+Lightning Network: https://lightning.network/lightning-network-paper-DRAFT-0.5.pdf
+Segregated Witness: https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki
+ZeroCash: http://zerocash-project.org/paper
+Bitcoin: https://bitcoin.org/bitcoin.pdf
+TheDAO: https://download.slock.it/public/DAO/WhitePaper.pdf
 
+
+## Environment
     Ethereum EIP https://github.com/ethereum/EIPs/issues
     Bitshares / Graphene
     Engima
@@ -400,25 +414,8 @@ SmartContracts
     Codex Pax https://medium.com/@PaxDirectory/codex-a-legal-scripting-language-e3723cc76662
     CommonAccord www.commonaccord.org http://hardjono.mit.edu/sites/default/files/documents/CommonAccord_Provenance_11182015.pdf
 
-#Consenso y metaconsenso
-
-Consensus http://www.csd.uoc.gr/~hy586/material/lectures/cs586-Section6.pdf
-The Quest for Scalable Blockchain Fabric: Proof-of-Work vs. BFT Replication http://vukolic.com/iNetSec_2015.pdf
-Impossibility of Distributed Consensus with One Faulty Process https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf
-Practical Byzantine Fault Tolerance http://pmg.csail.mit.edu/papers/osdi99.pdf
-Consensus in the Presence of Partial Synchrony https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf 
-Ethereum Sharding https://github.com/ethereum/EIPs/issues/53
-Cosmos: https://github.com/cosmos/cosmos/blob/master/WHITEPAPER.md
-Sidechains: https://blockstream.com/sidechains.pdf
-Interledger: https://interledger.org/rfcs/0001-interledger-architecture/
-Lightning Network: https://lightning.network/lightning-network-paper-DRAFT-0.5.pdf
-Segregated Witness: https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki
-ZeroCash: http://zerocash-project.org/paper
-Bitcoin: https://bitcoin.org/bitcoin.pdf
-TheDAO: https://download.slock.it/public/DAO/WhitePaper.pdf
 
 #Opcodes 
-
 [Lista actualizada](https://docs.google.com/spreadsheets/d/15wghZr-Z6sRSMdmRmhls9dVXTOpxKy8Y64oy9MvDZEQ/edit#gid=0). La lista v.1.0 original puede consultarse [aqui](https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs/edit#gid=0).
 
 ## 0s: Stop and Arithmetic Operations
