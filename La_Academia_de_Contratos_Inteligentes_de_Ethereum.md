@@ -400,6 +400,22 @@ SmartContracts
     Codex Pax https://medium.com/@PaxDirectory/codex-a-legal-scripting-language-e3723cc76662
     CommonAccord www.commonaccord.org http://hardjono.mit.edu/sites/default/files/documents/CommonAccord_Provenance_11182015.pdf
 
+#Consenso y metaconsenso
+
+Consensus http://www.csd.uoc.gr/~hy586/material/lectures/cs586-Section6.pdf
+The Quest for Scalable Blockchain Fabric: Proof-of-Work vs. BFT Replication http://vukolic.com/iNetSec_2015.pdf
+Impossibility of Distributed Consensus with One Faulty Process https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf
+Practical Byzantine Fault Tolerance http://pmg.csail.mit.edu/papers/osdi99.pdf
+Consensus in the Presence of Partial Synchrony https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf 
+Ethereum Sharding https://github.com/ethereum/EIPs/issues/53
+Cosmos: https://github.com/cosmos/cosmos/blob/master/WHITEPAPER.md
+Sidechains: https://blockstream.com/sidechains.pdf
+Interledger: https://interledger.org/rfcs/0001-interledger-architecture/
+Lightning Network: https://lightning.network/lightning-network-paper-DRAFT-0.5.pdf
+Segregated Witness: https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki
+ZeroCash: http://zerocash-project.org/paper
+Bitcoin: https://bitcoin.org/bitcoin.pdf
+TheDAO: https://download.slock.it/public/DAO/WhitePaper.pdf
 
 #Opcodes 
 
