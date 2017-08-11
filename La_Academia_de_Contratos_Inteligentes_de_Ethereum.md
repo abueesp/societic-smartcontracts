@@ -48,12 +48,13 @@
 - [90s: Exchange Operations](#90s-exchange-operations)
 - [a0s: Logging Operations](#a0s-logging-operations)
 - [f0s: System operations](#f0s-system-operations)
+- [Full Instruction Set](#Full Instruction Set)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ### ¿Qué es Ethereum?
 
-Podemos definir Ethereum de una forma aséptica y algo simplista como un *software bajo licencia libre que permite una interconexión P2P [distribuida](http://www.nils-diewald.de/images/dsn/thumb/dsn-cent-decent-distr-federated.png) de tal forma que una red de nodos que comparten una base de datos y un protocolo de estado, que pueden contener tanto objetos o variables como piezas enteras de código (contratos automatizados)* (arquitectura de Von Neumann).
+Podemos definir Ethereum de una forma aséptica y algo simplista como un *software bajo licencia libre que permite una interconexión P2P [distribuida](http://www.nils-diewald.de/images/dsn/thumb/dsn-cent-decent-distr-federated.png) de tal forma que una red de nodos que comparten una base de datos y un protocolo de estado, que pueden contener tanto objetos o variables como piezas enteras de código ("contratos")* a modo de arquitectura de Von Neumann. [https://github.com/ethereum/go-ethereum/wiki/Ethereum-Specification Éstas] son sus especificaciones actualmente.
 
 Ethereum fue ideadada por Vitalik Buterin a finales de 2013 en [Ethereum: A Next-Generation Cryptocurrency and Decentralized Application Platform](https://bitcoinmagazine.com/articles/ethereum-next-generation-cryptocurrency-decentralized-application-platform-1390528211), formalmente descrita por Gavin Wood a principios de 2014 en su [Yellow Paper](http://gavwood.com/Paper.pdf), y finalmente lanzada el 30 de julio de 2015.
 
