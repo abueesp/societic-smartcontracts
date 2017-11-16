@@ -316,6 +316,8 @@ Ethereum Wiki Information Source https://github.com/ethereum/wiki
 
 Ethereum Wiki Dev Best Practices https://github.com/ConsenSys/Ethereum-Development-Best-Practices/wiki
 
+Solidity lingint https://github.com/protofire/solhint
+
 Current EIPs https://github.com/ethereum/EIPs More info about EIPs [1](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1.mediawiki) [4](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-4.mediawiki])
 
 About RLPx https://github.com/ethereum/devp2p/blob/master/rlpx.md
